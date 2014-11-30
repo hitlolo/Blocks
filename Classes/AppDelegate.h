@@ -2,7 +2,8 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
-
+#include "CommandCenter.h"
+#include "GameData.h"
 /**
 @brief    The cocos2d Application.
 

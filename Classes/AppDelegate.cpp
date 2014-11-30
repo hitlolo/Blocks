@@ -24,24 +24,28 @@ void AppDelegate::initGLContextAttrs()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
+	std::vector<std::string> paths;
+	paths.push_back("fonts");
+	paths.push_back("images");
+	paths.push_back("sounds");
+	FileUtils::getInstance()->setSearchPaths(paths);
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Blocks");
         director->setOpenGLView(glview);
+		glview->setFrameSize(1032, 576);
     }
 
     // turn on display FPS
     director->setDisplayStats(true);
-
+	glview->setDesignResolutionSize(1032, 576, ResolutionPolicy::SHOW_ALL);
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
-    // run
-    director->runWithScene(scene);
+	auto commander = CommandCenter::getInstance();
+	commander->goState(GAME_STATE::LOGO);
 
     return true;
 }

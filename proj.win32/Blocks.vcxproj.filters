@@ -10,27 +10,87 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="class">
+      <UniqueIdentifier>{40c45dc4-e6b0-479c-86a1-c7d66287b269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\Gaming">
+      <UniqueIdentifier>{e5820369-25b3-4f23-8af1-acd121a4806f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\Logo">
+      <UniqueIdentifier>{c1292b94-3985-472a-ada9-0f5e856898fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\Data">
+      <UniqueIdentifier>{6f9117c4-179a-48c2-a4f3-bc307aa51dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class\Elements">
+      <UniqueIdentifier>{f5b27370-e8c8-4eba-a856-8fac829fbc32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AppDelegate.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>class</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\HelloWorldScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>class</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommandCenter.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogo.cpp">
+      <Filter>class\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMenu.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameBoard.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BlockElement.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Tetromino.cpp">
+      <Filter>class\Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\AppDelegate.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>class</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\HelloWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommandCenter.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameData.h">
+      <Filter>class\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogo.h">
+      <Filter>class\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMenu.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameBoard.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BlockElement.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tetromino.h">
+      <Filter>class\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
