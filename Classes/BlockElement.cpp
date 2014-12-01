@@ -21,6 +21,7 @@ BlockElement* BlockElement::create(BlockDef& def)
 
 BlockElement::BlockElement(BlockDef& def)
 {
+	
 	this->setBlockDefinition(def);
 }
 
@@ -40,10 +41,10 @@ bool BlockElement::init()
 
 void BlockElement::createByType(const BlockDef& block_def)
 {
-	this->setContentSize(Size(BLOCK_WIDTH, BLOCK_WIDTH));
-	this->setAnchorPoint(Point(0, 1));
-	float positionX = block_def._coordinateX * BLOCK_WIDTH;
-	float positionY = (PIECE_HEIGHT - block_def._coordinateY) * BLOCK_WIDTH;
+//	this->setContentSize(Size(BLOCK_WIDTH, BLOCK_WIDTH));
+	
+	float positionX = (block_def._coordinateX) * BLOCK_WIDTH;
+	float positionY = (PIECE_HEIGHT - (block_def._coordinateY)) * BLOCK_WIDTH;
 	this->setPosition(positionX, positionY);
 
 	if (block_def._isBlock == IS_BLOCK::EMPTY)
@@ -80,7 +81,8 @@ void BlockElement::createByType(const BlockDef& block_def)
 	}
 	this->initWithSpriteFrameName(file_name);
 //	this->initWithSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(file_name));
-	//this->initWithFile("blockSheet.png");
+//	this->initWithFile("blockGreenS.png");
+	this->setAnchorPoint(Point(0, 1));
 }
 
 BlockElement::~BlockElement()

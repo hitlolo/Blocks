@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-class Tetromino :public Node
+class Tetromino :public Sprite
 {
 public:
 

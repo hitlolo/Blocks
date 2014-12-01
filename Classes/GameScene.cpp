@@ -31,8 +31,8 @@ void GameScene::addLayers()
 {
 
 	auto background = TMXTiledMap::create("background.tmx");
-	background->setAnchorPoint(Point(0.5, 0.5));
-	background->setPosition(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2);
+//	background->setAnchorPoint(Point(0.5, 0.5));
+//	background->setPosition(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2);
 	this->addChild(background);
 
 

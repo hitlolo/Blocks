@@ -3,11 +3,16 @@
 bool Tetromino::init()
 {
 
-	if (!Node::init())
+	if (!Sprite::init())
 	{
 		return false;
 	}
 	
+//	this->setAnchorPoint(Point(0, 0));
+	auto grid = Sprite::create("grid1.png");
+	grid->setAnchorPoint(Point(0, 0));
+	this->addChild(grid);
+	grid->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
 	return true;
 }
 
@@ -32,12 +37,14 @@ Tetromino* Tetromino::create(TETROMINO_TYPE type)
 
 Tetromino::Tetromino(TETROMINO_TYPE type)
 {
+	this->setContentSize(Size(BLOCK_WIDTH * PIECE_WIDTH, BLOCK_HEIGHT * PIECE_HEIGHT));
 	this->setType(type);
 	switch (type)
 	{
 		case TETROMINO_TYPE::O:
 		{
 			char16_t o_shape[4] = { 0x6600, 0x6600, 0x6600, 0x6600 };
+			//char16_t o_shape[4] = { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF };
 			for (int i = 0; i < 4; i++)
 				this->shapesVector.push_back(o_shape[i]);
 			break;
@@ -87,6 +94,7 @@ Tetromino::Tetromino(TETROMINO_TYPE type)
 	}
 	this->curShape = 0;
 	char16_t mask  = 0x8000;
+
 	for (int y = 0; y < PIECE_HEIGHT; y++)
 	{
 		for (int x = 0; x < PIECE_WIDTH; x++)
@@ -98,10 +106,13 @@ Tetromino::Tetromino(TETROMINO_TYPE type)
 				BlockDef blockDef = { type, (IS_BLOCK)(matrix[y][x]),x,y };
 				auto blockCell = BlockElement::create(blockDef);
 				this->addChild(blockCell);
+				CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
+				CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
 				
 			}
 		}
 	}
+
 }
 
 Tetromino::~Tetromino()
