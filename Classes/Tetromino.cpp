@@ -8,11 +8,17 @@ bool Tetromino::init()
 		return false;
 	}
 	
-//	this->setAnchorPoint(Point(0, 0));
+//	this->setAnchorPoint(Point(0.5, 0.5));
+#if 1
 	auto grid = Sprite::create("grid1.png");
 	grid->setAnchorPoint(Point(0, 0));
 	this->addChild(grid);
 	grid->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
+#endif
+
+
+	initBlocks();
+
 	return true;
 }
 
@@ -37,7 +43,7 @@ Tetromino* Tetromino::create(TETROMINO_TYPE type)
 
 Tetromino::Tetromino(TETROMINO_TYPE type)
 {
-	this->setContentSize(Size(BLOCK_WIDTH * PIECE_WIDTH, BLOCK_HEIGHT * PIECE_HEIGHT));
+	this->setContentSize(Size(BLOCK_WIDTH * PIECE_SIZE, BLOCK_HEIGHT * PIECE_SIZE));
 	this->setType(type);
 	switch (type)
 	{
@@ -92,30 +98,128 @@ Tetromino::Tetromino(TETROMINO_TYPE type)
 			break;
 		}
 	}
-	this->curShape = 0;
-	char16_t mask  = 0x8000;
 
-	for (int y = 0; y < PIECE_HEIGHT; y++)
-	{
-		for (int x = 0; x < PIECE_WIDTH; x++)
-		{
-			matrix[y][x] = (bool)(mask & shapesVector[curShape]);
-			mask = mask >> 1;
-			if (matrix[y][x])
-			{
-				BlockDef blockDef = { type, (IS_BLOCK)(matrix[y][x]),x,y };
-				auto blockCell = BlockElement::create(blockDef);
-				this->addChild(blockCell);
-				CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
-				CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
-				
-			}
-		}
-	}
+	this->curShape = 0;
+	
+	blocksVector.resize(PIECE_SIZE);
+	for (int i = 0; i < PIECE_SIZE; i++)
+		blocksVector[i].resize(PIECE_SIZE);
 
 }
 
 Tetromino::~Tetromino()
 {
 
+}
+
+void Tetromino::initBlocks()
+{
+	char16_t mask = 0x8000;
+
+	//for (int y = 0; y < PIECE_SIZE; y++)
+	//{
+	//	for (int x = 0; x < PIECE_SIZE; x++)
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			matrix[y][x] = (bool)(mask & shapesVector[curShape]);
+			mask = mask >> 1;
+			
+			BlockDef blockDef = { TETROMINO, matrix[y][x],getType(), x, y };
+			auto blockCell = BlockElement::create(blockDef);
+			this->addChild(blockCell);
+			blocksVector[y][x] = blockCell;
+
+			CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
+			CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
+		}
+	}
+}
+
+
+
+//mover
+void Tetromino::onLeft()
+{
+	if (leftAble())
+	{
+		this->setPositionX(this->getPositionX() - BLOCK_WIDTH);
+	}
+	
+}
+
+void Tetromino::onRight()
+{
+	if (rightAble())
+	{
+		this->setPositionX(this->getPositionX() + BLOCK_WIDTH);
+	}
+	
+}
+
+void Tetromino::onRotate()
+{
+	CCLOG("ROTATE");
+}
+
+void Tetromino::onDown()
+{}
+
+void Tetromino::onHardDrop()
+{}
+
+void Tetromino::onHold()
+{
+}
+
+
+bool Tetromino::leftAble()
+{
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			if (blocksVector[y][x]->isMeEmpty())
+			{
+				continue;
+			}
+			CCLOG("%d,%d,i am not empty",y,x);
+			bool is_leftable = this->blocksVector[y][x]->leftAble();
+			if (is_leftable)
+			{
+				break;
+			}
+			else if (!is_leftable)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool Tetromino::rightAble()
+{
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = PIECE_SIZE - 1; x >= 0; x--)
+		{
+			if (blocksVector[y][x]->isMeEmpty())
+			{
+				continue;
+			}
+			CCLOG("%d,%d,i am not empty", y, x);
+			bool is_rightable = this->blocksVector[y][x]->rightAble();
+			if (is_rightable)
+			{
+				break;
+			}
+			else if (!is_rightable)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }

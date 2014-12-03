@@ -1,17 +1,16 @@
 #pragma once
             
-#define BLOCK_WIDTH           24
-#define BLOCK_HEIGHT          24
+#define BLOCK_WIDTH           32
+#define BLOCK_HEIGHT          32
 
-#define PIECE_WIDTH           4
-#define PIECE_HEIGHT          4
+#define PIECE_SIZE            4
 
 #define BOARD_WIDTH           10
 #define BOARD_HEIGHT          20
 
 
-#define SPAWN_POINT           Point((BLOCK_WIDTH * BOARD_WIDTH)/2 - BLOCK_WIDTH * 2, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * PIECE_HEIGHT))
-
+#define SPAWN_POINT           Point((BLOCK_WIDTH * BOARD_WIDTH)/2 - BLOCK_WIDTH * 2, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * PIECE_SIZE))
+#define BOARD_AT              Point(544, 64)  //32*16 32*2  x= 16 y=2  anchor 0,0
 typedef enum class game_state
 {
 	LOGO = 0,
@@ -19,6 +18,16 @@ typedef enum class game_state
 	GAME,
 	OVER
 }GAME_STATE;
+
+typedef bool FieldOrTetro;
+typedef bool OccupOrEmpty;
+
+#define OCCUPIED true
+#define EMPTY    false
+
+#define PLAYFIELD true
+#define TETROMINO false
+
 
 typedef enum class piece_type
 {
@@ -28,21 +37,19 @@ typedef enum class piece_type
 	L,
 	Z,
 	S,
-	T
+	T,
+	NOTHING      //means this is for board
 }TETROMINO_TYPE;
 
-typedef enum class is_block
-{
-	EMPTY = 0,
-	BLOCK
-}IS_BLOCK;
+
 
 typedef struct 
 {
-	TETROMINO_TYPE _type;
-	IS_BLOCK       _isBlock;
-	int            _coordinateX;
-	int            _coordinateY;
+	FieldOrTetro      _isFieldOrTetro;
+	OccupOrEmpty      _isOccupOrEmpty;
+	TETROMINO_TYPE    _tetroType;
+	int               _coordinateX;
+	int               _coordinateY;
 
 }BlockDef;
 

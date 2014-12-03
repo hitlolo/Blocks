@@ -29,10 +29,14 @@ bool GameScene::init()
 
 void GameScene::addLayers()
 {
-
-	auto background = TMXTiledMap::create("background.tmx");
-//	background->setAnchorPoint(Point(0.5, 0.5));
-//	background->setPosition(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Tetris.wav");
+	auto background = Sprite::create("bg.png");
+	float scale_x = visibleSize.width / background->getContentSize().width;
+	float scale_y = visibleSize.height / background->getContentSize().height;
+	background->setScaleX(scale_x);
+	background->setScaleY(scale_y);
+	background->setAnchorPoint(Point(0.5, 0.5));
+	background->setPosition(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2);
 	this->addChild(background);
 
 
@@ -50,7 +54,10 @@ void GameScene::addLayers()
 	auto gameBoard = GameBoard::create();
 	this->addChild(gameBoard);
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Tetris.wav");
+	auto touchLayer = TouchLayer::create();
+	this->addChild(touchLayer);
+	touchLayer->setMyTouchDelegate((gameBoard->getCurTetromino()));
+
 }
 
 GameScene::~GameScene()

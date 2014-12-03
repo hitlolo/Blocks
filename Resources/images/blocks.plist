@@ -7,93 +7,106 @@
             <key>blockBlueJ.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{24,24}}</string>
+                <string>{{2,2},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
             <key>blockCyanI.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{28,2},{24,24}}</string>
+                <string>{{2,36},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
+            </dict>
+            <key>blockEmpty.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,70},{32,32}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{32,32}}</string>
+                <key>sourceSize</key>
+                <string>{32,32}</string>
             </dict>
             <key>blockGreenS.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{54,2},{24,24}}</string>
+                <string>{{36,2},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
             <key>blockOrangeL.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,2},{24,24}}</string>
+                <string>{{70,2},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
             <key>blockPurpleT.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{106,2},{24,24}}</string>
+                <string>{{36,36},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
             <key>blockRedZ.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,2},{24,24}}</string>
+                <string>{{36,70},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
             <key>blockYellowO.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{158,2},{24,24}}</string>
+                <string>{{70,36},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{24,24}}</string>
+                <string>{{0,0},{32,32}}</string>
                 <key>sourceSize</key>
-                <string>{24,24}</string>
+                <string>{32,32}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -103,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>blockSheet.png</string>
             <key>size</key>
-            <string>{184,28}</string>
+            <string>{104,104}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d1896002758ddb2c3c930c38a52bde9a:6d1b4cdea4ba016100c2d8b202f74352:aa983412c2abb924c7ce4250ab21e91a$</string>
+            <string>$TexturePacker:SmartUpdate:158b9ef04c9b99e0e08023891c32c86f:7655b38498c5235fa29d67227a47c98e:aa983412c2abb924c7ce4250ab21e91a$</string>
             <key>textureFileName</key>
             <string>blockSheet.png</string>
         </dict>

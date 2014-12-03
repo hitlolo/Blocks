@@ -20,10 +20,17 @@ public:
 
 	~GameBoard();
 
+	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
+
+	bool isPointOccupied(Point);
+
+
+
 private:
 	
-
+	std::vector<std::vector<class BlockElement*>> playFieldVector;
 	
+	void initPlayField();
 };
 
 

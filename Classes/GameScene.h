@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "GameBoard.h"
 #include "SimpleAudioEngine.h"
+#include "TouchLayer.h"
 
 USING_NS_CC;
 

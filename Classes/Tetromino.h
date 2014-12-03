@@ -4,10 +4,11 @@
 #include "cocos2d.h"
 #include "GameData.h"
 #include "BlockElement.h"
+#include "TouchDelegate.h"
 
 USING_NS_CC;
 
-class Tetromino :public Sprite
+class Tetromino :public Sprite, public TouchDelegate
 {
 public:
 
@@ -21,14 +22,34 @@ public:
 
 	CC_SYNTHESIZE(TETROMINO_TYPE, myType, Type);
 
+	virtual void onLeft() override;
+
+	virtual void onRight() override;
+
+	virtual void onRotate() override;
+
+	virtual void onDown() override;
+
+	virtual void onHardDrop() override;
+
+	virtual void onHold() override;
+
+
 private:
 
-	std::vector<char16_t> shapesVector;
+	std::vector<char16_t>             shapesVector;
+
+	std::vector<std::vector<class BlockElement*>> blocksVector;
 
 	int     curShape;     //the index of current Shape
 
-	bool    matrix[PIECE_WIDTH][PIECE_HEIGHT]; //mask the ocupied cell
+	bool    matrix[PIECE_SIZE][PIECE_SIZE]; //mask the ocupied cell
 
+	void initBlocks();
+
+	bool leftAble();
+
+	bool rightAble();
 
 
 };
