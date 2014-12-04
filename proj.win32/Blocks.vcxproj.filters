@@ -63,6 +63,9 @@
     <ClCompile Include="..\Classes\SuperRotationSystem.cpp">
       <Filter>class\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\RandomGenerator.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -105,6 +108,9 @@
       <Filter>class\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SuperRotationSystem.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RandomGenerator.h">
       <Filter>class\Elements</Filter>
     </ClInclude>
   </ItemGroup>

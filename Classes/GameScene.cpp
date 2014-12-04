@@ -56,7 +56,7 @@ void GameScene::addLayers()
 
 	auto touchLayer = TouchLayer::create();
 	this->addChild(touchLayer);
-	touchLayer->setMyTouchDelegate((gameBoard->getCurTetromino()));
+	touchLayer->setMyTouchDelegate(gameBoard);
 
 }
 

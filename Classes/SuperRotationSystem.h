@@ -21,7 +21,7 @@ public:
 
 	~SuperRotationSystem();
 
-	void doRotation(Tetromino*);
+	bool doRotation(Tetromino*);
 
 	bool rotationTestByTetroType(TETROMINO_TYPE);
 

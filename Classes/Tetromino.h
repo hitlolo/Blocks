@@ -4,12 +4,13 @@
 #include "cocos2d.h"
 #include "GameData.h"
 #include "BlockElement.h"
-#include "TouchDelegate.h"
+
 #include "SuperRotationSystem.h"
+#include "RandomGenerator.h"
 
 USING_NS_CC;
 
-class Tetromino :public Sprite, public TouchDelegate
+class Tetromino :public Sprite
 {
 public:
 
@@ -23,18 +24,25 @@ public:
 
 	CC_SYNTHESIZE(TETROMINO_TYPE, myType, Type);
 
-	virtual void onLeft() override;
+	void onLeft() ;
 
-	virtual void onRight() override;
+	void onRight() ;
 
-	virtual void onRotate() override;
+	void onRotate() ;
 
-	virtual void onDown() override;
+	void onDown() ;
 
-	virtual void onHardDrop() override;
+	void onHardDrop() ;
 
-	virtual void onHold() override;
+	void onHold() ;
 
+	void setInitStateToTetro();
+
+	void setInitStateToPre();
+
+	void switchState();
+
+	bool isMoveAble();
 
 private:
 	friend class SuperRotationSystem;
@@ -43,11 +51,21 @@ private:
 
 	std::vector<std::vector<class BlockElement*>> blocksVector;
 
-	int  curShape;     //the index of current Shape
+	CC_SYNTHESIZE(TETROMINO_STATE, curState, CurState);
 
+	CC_SYNTHESIZE(bool, mobility, CurMobility);
+
+	CC_SYNTHESIZE(int, curShape, CurShape);//the index of current Shape
+     
 	bool shapeMatrix[PIECE_SIZE][PIECE_SIZE]; //mask the ocupied cell
 
 	void initBlocks();
+
+	void doCleanBeforeReset();
+
+	void setShapesByType(TETROMINO_TYPE);
+
+	void reShowing();
 
 	bool leftAble();
 
@@ -58,7 +76,18 @@ private:
 	bool rotateAble();
 
 	void doRotation();
+	
+	void fallingDown(float time);
 
+	void lockOn();
+
+	void startFalling();
+
+	void stopFalling();
+
+	bool isFalling();
+
+	void runLockDelay();
 };
 
 

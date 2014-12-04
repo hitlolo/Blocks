@@ -24,11 +24,12 @@ SuperRotationSystem::~SuperRotationSystem()
 	CC_SAFE_DELETE(_srs);
 }
 
-void SuperRotationSystem::doRotation(Tetromino* tetro)
+bool SuperRotationSystem::doRotation(Tetromino* tetro)
 {
 	setCurTetro(tetro);
 	TETROMINO_TYPE type = tetro->getType();
-	this->rotationTestByTetroType(type);
+	bool is_rotated =  this->rotationTestByTetroType(type);
+	return is_rotated;
 }
 
 bool SuperRotationSystem::rotationTestByTetroType(TETROMINO_TYPE type)

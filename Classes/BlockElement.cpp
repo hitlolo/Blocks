@@ -117,7 +117,7 @@ std::string BlockElement::getBlockFileName()
 }
 
 
-void BlockElement::reShowing()
+void BlockElement::switchShowing()
 {
 	this->resetOccupySituation();
 
@@ -183,7 +183,7 @@ Point BlockElement::toBoardCoordinate()
 
 	this->setParentCenter();
 	Point center = this->getParentCenter();
-	CCLOG("%f,%f,my getParentCenter", center.x, center.y);
+//	CCLOG("%f,%f,my getParentCenter", center.x, center.y);
 	int coodinate_x = getBlockDefinition()._coordinateX < 2 ?
 		center.x - (2 - getBlockDefinition()._coordinateX) :
 		center.x + (getBlockDefinition()._coordinateX - 2);
@@ -191,7 +191,7 @@ Point BlockElement::toBoardCoordinate()
 		center.y + (getBlockDefinition()._coordinateY -2) :
 		center.y - (2 -getBlockDefinition()._coordinateY );
 
-	CCLOG("%d,%d,my coodinate", coodinate_x, coodinate_y);
+	//CCLOG("%d,%d,my coodinate", coodinate_x, coodinate_y);
 	return Point(coodinate_x, coodinate_y);
 }
 
@@ -204,10 +204,10 @@ bool BlockElement::leftAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x - 1, curPosition.y);
-	if (newPosition.x >= 0)
+	if (newPosition.x >= 0 && newPosition.y <= 19)
 	{
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
-		CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x,newPosition.y);
+		//CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x,newPosition.y);
 		return isMoveable;
 	}
 	else if (newPosition.x < 0 )
@@ -225,10 +225,10 @@ bool BlockElement::rightAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x + 1, curPosition.y);
-	if (newPosition.x < BOARD_WIDTH)
+	if (newPosition.x < BOARD_WIDTH && newPosition.y <= 19)
 	{
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
-		CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
+		//CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
 		return isMoveable;
 	}
 	else if (newPosition.x >= BOARD_WIDTH)
@@ -246,13 +246,14 @@ bool BlockElement::downAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x , curPosition.y - 1);
-	if (newPosition.y >= 0)
+	if (newPosition.y >= 0 && newPosition.y <= 19)
 	{
+		CCLOG("can i move:.Point!:%f,%f", newPosition.x, newPosition.y);
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
-		CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
+		
 		return isMoveable;
 	}
-	else if (newPosition.y < 0)
+	else if (newPosition.y < 0 )
 	{
 		if (getBlockDefinition()._isOccupOrEmpty == OCCUPIED)
 		{
@@ -261,6 +262,10 @@ bool BlockElement::downAble()
 		else
 			return true;
 	}
+	else if (newPosition.y > 19)
+	{
+		return true;
+	}
 }
 
 bool BlockElement::rotateAble(int x,int y)
@@ -268,14 +273,20 @@ bool BlockElement::rotateAble(int x,int y)
 	Point curPosition = this->toBoardCoordinate();
 	curPosition.x += x;
 	curPosition.y += y;
-	if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0 || curPosition.y > 19)
+	//if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0 || curPosition.y > 19)
+	if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0)
 	{
 		return false;
+	}
+	else if (curPosition.y > 19)
+	{
+		return true;
 	}
 	else
 	{
 		return !(this->getGameBoard()->isPointOccupied(curPosition));
 	}
+	
 }
 
 
@@ -303,4 +314,22 @@ void BlockElement::setParentCenter()
 GameBoard* BlockElement::getGameBoard()
 {
 	return (dynamic_cast<GameBoard*>((dynamic_cast<Tetromino*>(getParent()))->getParent()));
+}
+
+void BlockElement::lockOn()
+{
+	Point point = this->toBoardCoordinate();
+	if (point.x >= 0 && point.x <= 9 && point.y >= 0 && point.y <= 19)
+	{
+		this->getGameBoard()->switchShowing(this->toBoardCoordinate());
+	}
+	
+}
+
+void BlockElement::reShowing(BlockDef& def)
+{
+	this->setBlockDefinition(def);
+	std::string file_name = this->getBlockFileName();
+	auto newFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(file_name);
+	this->setSpriteFrame(newFrame);
 }

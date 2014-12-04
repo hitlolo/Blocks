@@ -145,6 +145,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameLogo.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\GameBoard.cpp" />
+    <ClCompile Include="..\Classes\RandomGenerator.cpp" />
     <ClCompile Include="..\Classes\SuperRotationSystem.cpp" />
     <ClCompile Include="..\Classes\Tetromino.cpp" />
     <ClCompile Include="..\Classes\TouchLayer.cpp" />
@@ -160,6 +161,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\GameLogo.h" />
+    <ClInclude Include="..\Classes\RandomGenerator.h" />
     <ClInclude Include="..\Classes\SuperRotationSystem.h" />
     <ClInclude Include="..\Classes\Tetromino.h" />
     <ClInclude Include="..\Classes\TouchDelegate.h" />

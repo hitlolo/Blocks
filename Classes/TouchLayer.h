@@ -25,6 +25,14 @@ public:
 
 private:
 
+	void onLongLeft(float time);
+
+	void onLongRight(float time);
+
+	void onLongDown(float time);
+
+	void onLongRotate(float time);
+
 	void onLeft(Ref* sender);
 
 	void onRight(Ref* sender);
@@ -36,6 +44,16 @@ private:
 	void onHold(Ref* sender);
 
 	void onHardDrop(Ref* sender);
+
+	void onLongLeftClick(Object *pSender, ui::Widget::TouchEventType type);
+
+	void onLongRightClick(Object *pSender, ui::Widget::TouchEventType type);
+
+	void onLongDownClick(Object *pSender, ui::Widget::TouchEventType type);
+
+	void onLongRotateClick(Object *pSender, ui::Widget::TouchEventType type);
+
+
 
 
 };

@@ -20,7 +20,11 @@ public:
 
 	Point toBoardCoordinate();
 
-	void reShowing();
+	void switchShowing();
+
+	void reShowing(BlockDef&);
+
+	void lockOn();
 private:
 
 	void createByDef(const BlockDef&);

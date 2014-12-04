@@ -44,66 +44,12 @@ Tetromino* Tetromino::create(TETROMINO_TYPE type)
 Tetromino::Tetromino(TETROMINO_TYPE type)
 {
 	this->setContentSize(Size(BLOCK_WIDTH * PIECE_SIZE, BLOCK_HEIGHT * PIECE_SIZE));
-	this->setType(type);
-	switch (type)
-	{
-		case TETROMINO_TYPE::O:
-		{
-			char16_t o_shape[4] = { 0x6600, 0x6600, 0x6600, 0x6600 };
-			//char16_t o_shape[4] = { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(o_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::I:
-		{
-			char16_t i_shape[4] = { 0x0f00, 0x2222, 0x00f0, 0x4444 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(i_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::T:
-		{
-			char16_t t_shape[4] = { 0x4E00, 0x4640, 0x0E40, 0x4C40 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(t_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::S:
-		{
-			char16_t s_shape[4] = { 0x6C00, 0x4620, 0x06C0, 0x8C40 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(s_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::Z:
-		{
-			char16_t z_shape[4] = { 0xC600, 0x2640, 0x0C60, 0x4C80 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(z_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::L:
-		{
-			char16_t l_shape[4] = { 0x8E00, 0x6460, 0x0E20, 0x44C0 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(l_shape[i]);
-			break;
-		}
-		case TETROMINO_TYPE::J:
-		{
-			char16_t j_shape[4] = { 0x2E00, 0x4460, 0x0E80, 0xC440 };
-			for (int i = 0; i < 4; i++)
-				this->shapesVector.push_back(j_shape[i]);
-			break;
-		}
-	}
-
-	this->curShape = 0;
-	
+	shapesVector.resize(SHAPE_SIZE);
 	blocksVector.resize(PIECE_SIZE);
 	for (int i = 0; i < PIECE_SIZE; i++)
 		blocksVector[i].resize(PIECE_SIZE);
+	setShapesByType(type);
+
 
 }
 
@@ -131,13 +77,77 @@ void Tetromino::initBlocks()
 			this->addChild(blockCell);
 			blocksVector[y][x] = blockCell;
 
-			CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
-			CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
+		//	CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
+		//	CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
 		}
 	}
 }
 
+void Tetromino::setShapesByType(TETROMINO_TYPE type)
+{
+	this->setType(type);
+	switch (type)
+	{
+	case TETROMINO_TYPE::O:
+	{
+		char16_t o_shape[4] = { 0x6600, 0x6600, 0x6600, 0x6600 };
+		//char16_t o_shape[4] = { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = o_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::I:
+	{
+		char16_t i_shape[4] = { 0x0f00, 0x2222, 0x00f0, 0x4444 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = i_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::T:
+	{
+		char16_t t_shape[4] = { 0x4E00, 0x4640, 0x0E40, 0x4C40 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = t_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::S:
+	{
+		char16_t s_shape[4] = { 0x6C00, 0x4620, 0x06C0, 0x8C40 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = s_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::Z:
+	{
+		char16_t z_shape[4] = { 0xC600, 0x2640, 0x0C60, 0x4C80 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = z_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::L:
+	{
+		char16_t l_shape[4] = { 0x8E00, 0x6440, 0x0E20, 0x44C0 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = l_shape[i];
+		break;
+	}
+	case TETROMINO_TYPE::J:
+	{
+		char16_t j_shape[4] = { 0x2E00, 0x4460, 0x0E80, 0xC440 };
+		for (int i = 0; i < 4; i++)
+			this->shapesVector[i] = j_shape[i];
+		break;
+	}
+	}
 
+	this->curShape = 0;
+}
+
+void Tetromino::doCleanBeforeReset()
+{
+
+
+}
 
 //mover
 void Tetromino::onLeft()
@@ -145,6 +155,15 @@ void Tetromino::onLeft()
 	if (leftAble())
 	{
 		this->setPositionX(this->getPositionX() - BLOCK_WIDTH);
+		
+		if (downAble())
+		{
+			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+			if (lock_on)
+			{
+				this->stopAction(lock_on);
+			}
+		}
 	}
 	
 }
@@ -154,6 +173,14 @@ void Tetromino::onRight()
 	if (rightAble())
 	{
 		this->setPositionX(this->getPositionX() + BLOCK_WIDTH);
+		if (downAble())
+		{
+			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+			if (lock_on)
+			{
+				this->stopAction(lock_on);
+			}
+		}
 	}
 	
 }
@@ -164,7 +191,18 @@ void Tetromino::onRotate()
 	{
 		doRotation();
 	}*/
-	SuperRotationSystem::getInstance()->doRotation(this);
+	bool is_rotated = SuperRotationSystem::getInstance()->doRotation(this);
+	if (is_rotated)
+	{
+		if (downAble())
+		{
+			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+			if (lock_on)
+			{
+				this->stopAction(lock_on);
+			}
+		}
+	}
 	
 }
 
@@ -174,6 +212,20 @@ void Tetromino::onDown()
 	{
 		this->setPositionY(this->getPositionY() - BLOCK_WIDTH);
 	}
+	else
+	{
+		auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+		if (lock_on)
+		{
+			this->stopAction(lock_on);
+
+		}
+		CCLOG("!!!!!!!!!!!!!!!!!!!!!");
+		this->lockOn();
+		//this->stopFalling();
+		
+	}
+
 }
 
 void Tetromino::onHardDrop()
@@ -194,7 +246,7 @@ bool Tetromino::leftAble()
 			{
 				continue;
 			}
-			CCLOG("%d,%d,i am not empty",y,x);
+		//	CCLOG("%d,%d,i am not empty",y,x);
 			bool is_leftable = this->blocksVector[y][x]->leftAble();
 			if (is_leftable)
 			{
@@ -219,7 +271,7 @@ bool Tetromino::rightAble()
 			{
 				continue;
 			}
-			CCLOG("%d,%d,i am not empty", y, x);
+		//	CCLOG("%d,%d,i am not empty", y, x);
 			bool is_rightable = this->blocksVector[y][x]->rightAble();
 			if (is_rightable)
 			{
@@ -245,7 +297,7 @@ bool Tetromino::downAble()
 			{
 				continue;
 			}
-			CCLOG("%d,%d,i am not empty", y, x);
+		//	CCLOG("%d,%d,i am not empty", y, x);
 			bool is_downable = this->blocksVector[y][x]->downAble();
 			if (is_downable)
 			{
@@ -314,9 +366,122 @@ void Tetromino::doRotation()
 			{
 				shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
 				
-				blocksVector[y][x]->reShowing();
+				blocksVector[y][x]->switchShowing();
 			}	
 			mask = mask >> 1;
 		}
 	}
+}
+
+
+
+void Tetromino::fallingDown(float time)
+{
+	if ( downAble() && getCurMobility() )
+	{
+		this->setPositionY(this->getPositionY() - BLOCK_HEIGHT);
+	}
+	else
+	{
+		runLockDelay();
+	}
+	
+}
+
+void Tetromino::lockOn()
+{
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{		
+			if (blocksVector[y][x]->isMeEmpty())
+			{
+				continue;
+			}
+			else
+			{
+				blocksVector[y][x]->lockOn();
+			}
+		}
+	}
+	
+	dynamic_cast<GameBoard*> (getParent())->switchTetromino();
+}
+
+void Tetromino::runLockDelay()
+{
+	auto delay = DelayTime::create(0.25f);
+	auto lockon = Sequence::createWithTwoActions(delay, CCCallFunc::create(CC_CALLBACK_0(Tetromino::lockOn,this)));
+	lockon->setTag(LOCK_DELAY_TAG);
+	this->runAction(lockon);
+}
+
+void Tetromino::startFalling()
+{
+	this->schedule(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown), 1.0f);
+}
+
+void Tetromino::stopFalling()
+{
+	unschedule(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown));
+}
+
+void Tetromino::setInitStateToTetro()
+{
+	this->setCurState(TETROMINO_STATE::SHOW);
+	this->setPosition(SPAWN_POINT);
+	this->setCurMobility(true);
+	this->startFalling();
+	
+}
+
+void Tetromino::setInitStateToPre()
+{
+	this->setCurState(TETROMINO_STATE::PRE);
+	this->setCurMobility(false);
+	this->setPosition(PRE_POINT);
+}
+
+void Tetromino::switchState()
+{
+	if (curState == TETROMINO_STATE::SHOW)
+	{
+		this->setInitStateToPre();
+		this->stopFalling();
+		this->reShowing();
+	}
+	else if (curState == TETROMINO_STATE::PRE)
+	{
+		setInitStateToTetro();
+	}
+}
+
+void Tetromino::reShowing()
+{
+	TETROMINO_TYPE type = (TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag();
+	this->setShapesByType(type);
+
+	char16_t mask = 0x8000;
+
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
+			mask = mask >> 1;
+			BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], getType(), x, y };
+			blocksVector[y][x]->reShowing(blockDef);
+
+		}
+	}
+}
+
+bool Tetromino::isMoveAble()
+{
+	return this->getCurMobility();
+}
+
+bool Tetromino::isFalling()
+{
+	return isScheduled(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown));
 }

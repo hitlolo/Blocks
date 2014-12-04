@@ -12,31 +12,13 @@ bool GameBoard::init()
 	//this->ignoreAnchorPointForPosition(true);	
 	//this->setAnchorPoint(Point(0, 0));
 	this->setPosition(BOARD_AT);
-
-#if 1
-	auto tetro = Tetromino::create(TETROMINO_TYPE::O);
-	tetro->setPosition(SPAWN_POINT);
-	this->addChild(tetro);
-	this->setCurTetromino(tetro);
-	auto blocks = tetro->getChildren();
-	for (auto block : blocks)
-	{
-		if (dynamic_cast<BlockElement*>(block))
-		{
-			CCLOG("x=%f,y=%f,", dynamic_cast<BlockElement*>(block)->toBoardCoordinate().x, dynamic_cast<BlockElement*>(block)->toBoardCoordinate().y);
-		}
-	}
-
-#endif	
-
-	
-
 #if 1
 	auto grid = Sprite::create("grid.png");
 	grid->setAnchorPoint(Point(0, 0));
 	this->addChild(grid);
 	grid->setOpacity(100);
 #endif
+	gameStart();
 	return true;
 }
 
@@ -48,7 +30,7 @@ GameBoard::GameBoard()
 	for (int i = 0; i < BOARD_HEIGHT; i++)
 		playFieldVector[i].resize(BOARD_WIDTH);
 
-
+	curTetromino = nullptr;
 	initPlayField();
 }
 
@@ -93,4 +75,106 @@ void GameBoard::initPlayField()
 bool GameBoard::isPointOccupied(Point point)
 {
 	return playFieldVector[point.y][point.x]->getBlockDefinition()._isOccupOrEmpty;
+}
+
+void GameBoard::switchShowing(Point point)
+{
+	playFieldVector[point.y][point.x]->switchShowing();
+}
+
+
+void GameBoard::gameStart()
+{
+
+	auto tetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag());	
+	tetro->setInitStateToTetro();
+	this->addChild(tetro);
+
+	this->setCurTetromino(tetro);
+	
+	auto preTetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag());	
+	preTetro->setInitStateToPre();
+	this->addChild(preTetro);
+	this->setNextTetromino(preTetro);
+
+#if 0
+	auto blocks = tetro->getChildren();
+	for (auto block : blocks)
+	{
+		if (dynamic_cast<BlockElement*>(block))
+		{
+			CCLOG("x=%f,y=%f,", dynamic_cast<BlockElement*>(block)->toBoardCoordinate().x, dynamic_cast<BlockElement*>(block)->toBoardCoordinate().y);
+		}
+	}
+
+#endif	
+}
+
+void GameBoard::switchTetromino()
+{
+	this->curTetromino->switchState();
+	this->nextTetromino->switchState();
+
+	auto tem = this->curTetromino;
+
+	this->setCurTetromino(nextTetromino);
+	this->setNextTetromino(tem);
+}
+
+void GameBoard::onLeft()
+{
+	curTetromino->onLeft();
+}
+
+void GameBoard::onRight()
+{
+	curTetromino->onRight();
+}
+
+void GameBoard::onRotate() 
+{
+	curTetromino->onRotate();
+}
+
+void GameBoard::onDown()
+{
+	curTetromino->onDown();
+}
+
+void GameBoard::onHardDrop() 
+{
+
+}
+
+void GameBoard::onHold()
+{
+
+}
+
+void GameBoard::onSoftDropStart()
+{
+	bool isSoftDroping = curTetromino->isFalling();
+	if (isSoftDroping)
+	{
+		this->curTetromino->stopFalling();
+	}
+	else
+	{
+		return;
+	}
+	
+}
+
+void GameBoard::onSoftDropStop()
+{
+	bool isSoftDroping = curTetromino->isFalling();
+	if (!isSoftDroping)
+	{
+		this->curTetromino->startFalling();
+	}
+	else
+	{
+		return;
+	}
+
 }

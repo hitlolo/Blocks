@@ -4,12 +4,15 @@
 #define BLOCK_HEIGHT          32
 
 #define PIECE_SIZE            4
-
+#define SHAPE_SIZE            4
 #define BOARD_WIDTH           10
 #define BOARD_HEIGHT          20
 
+#define LOCK_DELAY_TAG        1001
 
-#define SPAWN_POINT           Point((BLOCK_WIDTH * BOARD_WIDTH)/2 - BLOCK_WIDTH * 2, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * PIECE_SIZE))
+
+#define SPAWN_POINT           Point((BLOCK_WIDTH * BOARD_WIDTH)/2 - BLOCK_WIDTH * 2, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * (PIECE_SIZE-2)))
+#define PRE_POINT             Point((BLOCK_WIDTH * BOARD_WIDTH)/2 + BLOCK_WIDTH * 6, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * PIECE_SIZE))
 #define BOARD_AT              Point(544, 64)  //32*16 32*2  x= 16 y=2  anchor 0,0
 typedef enum class game_state
 {
@@ -40,6 +43,13 @@ typedef enum class piece_type
 	T,
 	NOTHING      //means this is for board
 }TETROMINO_TYPE;
+
+typedef enum class piece_state
+{
+	SHOW = 0,
+	PRE,
+	GHOST
+}TETROMINO_STATE;
 
 
 

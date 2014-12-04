@@ -18,6 +18,10 @@ public:
 
 	virtual void onHardDrop() = 0;
 
+	virtual void onSoftDropStart() = 0;
+
+	virtual void onSoftDropStop() = 0;
+
 	virtual void onHold() = 0;
 
 
