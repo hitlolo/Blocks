@@ -38,6 +38,12 @@ void TouchLayer::getAndSetButtons()
 		rotateButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onRotation, this));
 	}
 
+	auto downButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("downButton"));
+	if (downButton)
+	{
+		downButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onDown, this));
+	}
+
 }
 
 

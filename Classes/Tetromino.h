@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "BlockElement.h"
 #include "TouchDelegate.h"
+#include "SuperRotationSystem.h"
 
 USING_NS_CC;
 
@@ -36,14 +37,15 @@ public:
 
 
 private:
+	friend class SuperRotationSystem;
 
 	std::vector<char16_t>             shapesVector;
 
 	std::vector<std::vector<class BlockElement*>> blocksVector;
 
-	int     curShape;     //the index of current Shape
+	int  curShape;     //the index of current Shape
 
-	bool    matrix[PIECE_SIZE][PIECE_SIZE]; //mask the ocupied cell
+	bool shapeMatrix[PIECE_SIZE][PIECE_SIZE]; //mask the ocupied cell
 
 	void initBlocks();
 
@@ -51,6 +53,11 @@ private:
 
 	bool rightAble();
 
+	bool downAble();
+
+	bool rotateAble();
+
+	void doRotation();
 
 };
 

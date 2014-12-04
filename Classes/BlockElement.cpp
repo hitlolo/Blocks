@@ -244,7 +244,38 @@ bool BlockElement::rightAble()
 
 bool BlockElement::downAble()
 {
-	return false;
+	Point curPosition = this->toBoardCoordinate();
+	Point newPosition = Point(curPosition.x , curPosition.y - 1);
+	if (newPosition.y >= 0)
+	{
+		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
+		CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
+		return isMoveable;
+	}
+	else if (newPosition.y < 0)
+	{
+		if (getBlockDefinition()._isOccupOrEmpty == OCCUPIED)
+		{
+			return false;
+		}
+		else
+			return true;
+	}
+}
+
+bool BlockElement::rotateAble(int x,int y)
+{
+	Point curPosition = this->toBoardCoordinate();
+	curPosition.x += x;
+	curPosition.y += y;
+	if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0 || curPosition.y > 19)
+	{
+		return false;
+	}
+	else
+	{
+		return !(this->getGameBoard()->isPointOccupied(curPosition));
+	}
 }
 
 

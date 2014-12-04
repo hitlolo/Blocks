@@ -123,10 +123,10 @@ void Tetromino::initBlocks()
 	{
 		for (int x = 0; x < PIECE_SIZE; x++)
 		{
-			matrix[y][x] = (bool)(mask & shapesVector[curShape]);
+			shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
 			mask = mask >> 1;
 			
-			BlockDef blockDef = { TETROMINO, matrix[y][x],getType(), x, y };
+			BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], getType(), x, y };
 			auto blockCell = BlockElement::create(blockDef);
 			this->addChild(blockCell);
 			blocksVector[y][x] = blockCell;
@@ -160,11 +160,21 @@ void Tetromino::onRight()
 
 void Tetromino::onRotate()
 {
-	CCLOG("ROTATE");
+	/*if (rotateAble())
+	{
+		doRotation();
+	}*/
+	SuperRotationSystem::getInstance()->doRotation(this);
+	
 }
 
 void Tetromino::onDown()
-{}
+{
+	if (downAble())
+	{
+		this->setPositionY(this->getPositionY() - BLOCK_WIDTH);
+	}
+}
 
 void Tetromino::onHardDrop()
 {}
@@ -222,4 +232,91 @@ bool Tetromino::rightAble()
 		}
 	}
 	return true;
+}
+
+
+bool Tetromino::downAble()
+{
+	for (int x = 0; x < PIECE_SIZE; x++)
+	{
+		for (int y = 0; y < PIECE_SIZE; y++)
+		{
+			if (blocksVector[y][x]->isMeEmpty())
+			{
+				continue;
+			}
+			CCLOG("%d,%d,i am not empty", y, x);
+			bool is_downable = this->blocksVector[y][x]->downAble();
+			if (is_downable)
+			{
+				break;
+			}
+			else if (!is_downable)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool Tetromino::rotateAble()
+{
+	int temShape = curShape + 1;
+	if (temShape == 4)
+	{
+		temShape = 0;
+	}
+	char16_t mask = 0x8000;
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			if (shapeMatrix[y][x] == (bool)(mask & shapesVector[temShape]))
+			{
+				mask = mask >> 1;
+				continue;
+			}
+			else
+			{
+				bool is_rotateable = blocksVector[y][x]->rotateAble();
+				if (!is_rotateable)
+				{
+					return false;
+				}
+			}
+			mask = mask >> 1;
+		}
+	}
+	return true;
+}
+
+void Tetromino::doRotation()
+{
+	curShape++;
+	if (curShape == 4)
+	{
+		curShape = 0;
+	}
+
+	char16_t mask = 0x8000;
+
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			if (shapeMatrix[y][x] == (bool)(mask & shapesVector[curShape]))
+			{
+				mask = mask >> 1;
+				continue;
+			}
+			else
+			{
+				shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
+				
+				blocksVector[y][x]->reShowing();
+			}	
+			mask = mask >> 1;
+		}
+	}
 }

@@ -60,6 +60,9 @@
     <ClCompile Include="..\Classes\TouchLayer.cpp">
       <Filter>class\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SuperRotationSystem.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -99,6 +102,9 @@
       <Filter>class\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TouchDelegate.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SuperRotationSystem.h">
       <Filter>class\Elements</Filter>
     </ClInclude>
   </ItemGroup>

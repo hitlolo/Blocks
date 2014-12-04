@@ -46,6 +46,8 @@ private:
 	bool rightAble();
 
 	bool downAble();
+
+	bool rotateAble(int = 0,int = 0); 
 	
 	void resetOccupySituation();
 
