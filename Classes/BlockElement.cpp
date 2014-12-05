@@ -225,10 +225,10 @@ bool BlockElement::rightAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x + 1, curPosition.y);
-	if (newPosition.x <= FIELD_LEFT_BOARD && newPosition.y <= FIELD_TOP)
+	if (newPosition.x <= FIELD_RIGHT_BOARD && newPosition.y <= FIELD_TOP)
 	{
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
-		//CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
+		CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
 		return isMoveable;
 	}
 	else if (newPosition.x > FIELD_RIGHT_BOARD)

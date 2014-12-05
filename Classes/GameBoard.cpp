@@ -187,6 +187,8 @@ void GameBoard::onSoftDropStop()
 
 void GameBoard::checkClear()
 {
+	int line[4] = {-1,-1,-1,-1};
+	int index = 0;
 	for (int y = 0; y < getCurTop(); y++)
 	{
 		for (int x = 0; x <= FIELD_RIGHT_BOARD; x++)
@@ -197,49 +199,73 @@ void GameBoard::checkClear()
 			}
 			if (x == FIELD_RIGHT_BOARD)
 			{
-				CCLOG("need to be cleared!");
-				clearLine(y);
+				line[index++] = y;
+				
 			}
 		}
 	}
-}
-
-void GameBoard::clearLine(int line)
-{
-	Vector<FiniteTimeAction*> vector_action;
-	int tem = line;
-	tem >>= 1;
-	tem <<= 1;
-	if (tem == line)
+	if (index == 0)
 	{
-
-		for (int x = FIELD_LEFT_BOARD; x <= FIELD_RIGHT_BOARD; x++)
-		{
-			auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[line][x])), nullptr);
-			vector_action.pushBack(action);
-		}
+		return;
 	}
 	else
 	{
-		for (int x = FIELD_RIGHT_BOARD; x >= FIELD_LEFT_BOARD; x--)
+		clearLine(line);
+	}
+	
+}
+
+void GameBoard::clearLine(int lineArray[])
+{
+	Vector<FiniteTimeAction*> vector_action;
+	int combo = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (lineArray[i] == -1)
 		{
-			auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[line][x])), nullptr);
-			vector_action.pushBack(action);
+			continue;
+		}
+		else
+		{	
+			combo++;
+			int tem = lineArray[i];
+			tem >>= 1;
+			tem <<= 1;
+			if (tem == lineArray[i])
+			{
+				for (int x = FIELD_LEFT_BOARD; x <= FIELD_RIGHT_BOARD; x++)
+				{
+					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineArray[i] - (combo - 1)][x])), nullptr);
+					vector_action.pushBack(action);
+				}
+			}
+			else
+			{
+				for (int x = FIELD_RIGHT_BOARD; x >= FIELD_LEFT_BOARD; x--)
+				{
+					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineArray[i] - (combo - 1)][x])), nullptr);
+					vector_action.pushBack(action);
+				}
+			}
+			
+			auto fall = CCCallFunc::create(CC_CALLBACK_0(GameBoard::fallLine, this, lineArray[i] - (combo - 1)));
+			vector_action.pushBack(fall);
+			
 		}
 	}
-	//clear
 
-	auto fall = CCCallFunc::create(CC_CALLBACK_0(GameBoard::fallLine, this, line));
-	vector_action.pushBack(fall);
 	auto action = Sequence::create(vector_action);
-	//fall
-	
 	this->runAction(action);
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("deletechips.wav");
+	//fall
+
+	//fallLine(lineArray);
+	
+
 }
 
 void GameBoard::fallLine(int line)
 {
+
 	for (int y = line; y <= getCurTop(); y++)
 	{
 		for (int x = 0; x <= FIELD_RIGHT_BOARD; x++)
@@ -247,6 +273,10 @@ void GameBoard::fallLine(int line)
 			BlockDef def = playFieldVector[y + 1][x]->getBlockDefinition();
 			def._coordinateY -= 1;
 			playFieldVector[y][x]->reShowing(def);
+					
 		}
 	}
+				
+	this->setCurTop(getCurTop() - 1);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("deletechips.wav");
 }

@@ -170,8 +170,10 @@ void Tetromino::onLeft()
 
 void Tetromino::onRight()
 {
+
 	if (rightAble())
 	{
+		
 		this->setPositionX(this->getPositionX() + BLOCK_WIDTH);
 		if (downAble())
 		{
@@ -269,7 +271,7 @@ bool Tetromino::rightAble()
 			{
 				continue;
 			}
-		//	CCLOG("%d,%d,i am not empty", y, x);
+			CCLOG("%d,%d,i am not empty", y, x);
 			bool is_rightable = this->blocksVector[y][x]->rightAble();
 			if (is_rightable)
 			{

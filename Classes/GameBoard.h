@@ -65,7 +65,7 @@ private:
 
 	void gameStart(); 
 
-	void clearLine(int);
+	void clearLine(int[]);
 
 	void fallLine(int);
 	
