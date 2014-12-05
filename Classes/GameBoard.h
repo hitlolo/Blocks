@@ -6,6 +6,7 @@
 #include "Tetromino.h"
 #include "RandomGenerator.h"
 #include "TouchDelegate.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -21,6 +22,8 @@ public:
 	GameBoard();
 
 	~GameBoard();
+
+	CC_SYNTHESIZE(int, curTop, CurTop);
 
 	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
 
@@ -50,6 +53,10 @@ public:
 
 	virtual void onSoftDropStop() override;
 
+	void gameOver();
+
+	void checkClear();
+
 private:
 	
 	std::vector<std::vector<class BlockElement*>> playFieldVector;
@@ -57,6 +64,11 @@ private:
 	void initPlayField();
 
 	void gameStart(); 
+
+	void clearLine(int);
+
+	void fallLine(int);
+	
 };
 
 

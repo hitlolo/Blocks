@@ -7,6 +7,7 @@
 
 #include "SuperRotationSystem.h"
 #include "RandomGenerator.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -23,18 +24,6 @@ public:
 	~Tetromino();
 
 	CC_SYNTHESIZE(TETROMINO_TYPE, myType, Type);
-
-	void onLeft() ;
-
-	void onRight() ;
-
-	void onRotate() ;
-
-	void onDown() ;
-
-	void onHardDrop() ;
-
-	void onHold() ;
 
 	void setInitStateToTetro();
 
@@ -66,6 +55,19 @@ private:
 	void setShapesByType(TETROMINO_TYPE);
 
 	void reShowing();
+
+	void onLeft();
+
+	void onRight();
+
+	void onRotate();
+
+	void onDown();
+
+	void onHardDrop();
+
+	void onHold();
+
 
 	bool leftAble();
 

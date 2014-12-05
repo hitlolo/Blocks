@@ -55,7 +55,7 @@ private:
 	
 	void resetOccupySituation();
 
-	void resetSowingSituation(FieldOrTetro);
+	void resetShowingSituation(FieldOrTetro);
 
 	class GameBoard* getGameBoard();
 };

@@ -52,19 +52,20 @@ bool SuperRotationSystem::rotationTestByTetroType(TETROMINO_TYPE type)
 
 bool SuperRotationSystem::rotationTestI()
 {
-	if (getCurTetro()->curShape == 0)
+	SHAPE_STATE curShape = (SHAPE_STATE)(getCurTetro()->curShape);
+	if (curShape == SHAPE_STATE::SHAPE_0)
 	{
 		return srsI_0toR();
 	}
-	else if (getCurTetro()->curShape == 1)
+	else if (curShape == SHAPE_STATE::SHAPE_R)
 	{
 		return srsI_Rto2();
 	}
-	else if (getCurTetro()->curShape == 2)
+	else if (curShape == SHAPE_STATE::SHAPE_2)
 	{
 		return srsI_2toL();
 	}
-	else if (getCurTetro()->curShape == 3)
+	else if (curShape == SHAPE_STATE::SHAPE_L)
 	{
 		return srsI_Lto0();
 	}
@@ -83,20 +84,20 @@ bool SuperRotationSystem::rotationTestI()
 //0->L    (0, 0)	(+1, 0)	(+1, +1)	(0, -2)	(+1, -2)
 bool SuperRotationSystem::rotationTestOther()
 {	
-	
-	if (getCurTetro()->curShape == 0)
+	SHAPE_STATE curShape = (SHAPE_STATE)(getCurTetro()->curShape);
+	if (curShape == SHAPE_STATE::SHAPE_0)
 	{
 		return srsOther0toR();
 	}
-	else if (getCurTetro()->curShape == 1)
+	else if (curShape == SHAPE_STATE::SHAPE_R)
 	{
 		return srsOtherRto2();
 	}
-	else if (getCurTetro()->curShape == 2)
+	else if (curShape == SHAPE_STATE::SHAPE_2)
 	{
 		return srsOther2toL();
 	}
-	else if (getCurTetro()->curShape == 3)
+	else if (curShape == SHAPE_STATE::SHAPE_L)
 	{
 		return srsOtherLto0();
 	}

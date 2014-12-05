@@ -90,51 +90,51 @@ void Tetromino::setShapesByType(TETROMINO_TYPE type)
 	{
 	case TETROMINO_TYPE::O:
 	{
-		char16_t o_shape[4] = { 0x6600, 0x6600, 0x6600, 0x6600 };
+		char16_t o_shape[SHAPE_SIZE] = { 0x6600, 0x6600, 0x6600, 0x6600 };
 		//char16_t o_shape[4] = { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF };
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = o_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::I:
 	{
-		char16_t i_shape[4] = { 0x0f00, 0x2222, 0x00f0, 0x4444 };
-		for (int i = 0; i < 4; i++)
+		char16_t i_shape[SHAPE_SIZE] = { 0x0f00, 0x2222, 0x00f0, 0x4444 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = i_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::T:
 	{
-		char16_t t_shape[4] = { 0x4E00, 0x4640, 0x0E40, 0x4C40 };
-		for (int i = 0; i < 4; i++)
+		char16_t t_shape[SHAPE_SIZE] = { 0x4E00, 0x4640, 0x0E40, 0x4C40 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = t_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::S:
 	{
-		char16_t s_shape[4] = { 0x6C00, 0x4620, 0x06C0, 0x8C40 };
-		for (int i = 0; i < 4; i++)
+		char16_t s_shape[SHAPE_SIZE] = { 0x6C00, 0x4620, 0x06C0, 0x8C40 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = s_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::Z:
 	{
-		char16_t z_shape[4] = { 0xC600, 0x2640, 0x0C60, 0x4C80 };
-		for (int i = 0; i < 4; i++)
+		char16_t z_shape[SHAPE_SIZE] = { 0xC600, 0x2640, 0x0C60, 0x4C80 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = z_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::L:
 	{
-		char16_t l_shape[4] = { 0x8E00, 0x6440, 0x0E20, 0x44C0 };
-		for (int i = 0; i < 4; i++)
+		char16_t l_shape[SHAPE_SIZE] = { 0x8E00, 0x6440, 0x0E20, 0x44C0 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = l_shape[i];
 		break;
 	}
 	case TETROMINO_TYPE::J:
 	{
-		char16_t j_shape[4] = { 0x2E00, 0x4460, 0x0E80, 0xC440 };
-		for (int i = 0; i < 4; i++)
+		char16_t j_shape[SHAPE_SIZE] = { 0x2E00, 0x4460, 0x0E80, 0xC440 };
+		for (int i = 0; i < SHAPE_SIZE; i++)
 			this->shapesVector[i] = j_shape[i];
 		break;
 	}
@@ -220,10 +220,8 @@ void Tetromino::onDown()
 			this->stopAction(lock_on);
 
 		}
-		CCLOG("!!!!!!!!!!!!!!!!!!!!!");
 		this->lockOn();
-		//this->stopFalling();
-		
+	
 	}
 
 }
@@ -357,7 +355,7 @@ void Tetromino::doRotation()
 	{
 		for (int x = 0; x < PIECE_SIZE; x++)
 		{
-			if (shapeMatrix[y][x] == (bool)(mask & shapesVector[curShape]))
+			if (shapeMatrix[y][x] == static_cast<bool>(mask & shapesVector[curShape]))
 			{
 				mask = mask >> 1;
 				continue;
@@ -404,6 +402,10 @@ void Tetromino::lockOn()
 			}
 		}
 	}
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("figurestop.wav");
+
+	dynamic_cast<GameBoard*> (getParent())->checkClear();
 	
 	dynamic_cast<GameBoard*> (getParent())->switchTetromino();
 }

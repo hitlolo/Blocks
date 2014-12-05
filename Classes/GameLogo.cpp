@@ -58,6 +58,9 @@ void GameLogo::loadImageOver(Texture2D* texture)
 void GameLogo::loadMusic()
 {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Tetris.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("buttons.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("deletechips.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("figurestop.wav");
 }
 
 void GameLogo::startGame()
@@ -70,10 +73,7 @@ void GameLogo::startGame()
 
 void GameLogo::nextScene()
 {
-
-
 	CommandCenter::getInstance()->goState(GAME_STATE::GAME);
-
 }
 
 void GameLogo::onExit()

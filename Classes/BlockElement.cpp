@@ -124,11 +124,11 @@ void BlockElement::switchShowing()
 	if (getBlockDefinition()._isFieldOrTetro == PLAYFIELD)
 	{
 	
-		this->resetSowingSituation(PLAYFIELD);
+		this->resetShowingSituation(PLAYFIELD);
 	}
 	else if (getBlockDefinition()._isFieldOrTetro == TETROMINO)
 	{
-		this->resetSowingSituation(TETROMINO);
+		this->resetShowingSituation(TETROMINO);
 	}
 
 	std::string file_name = this->getBlockFileName();
@@ -143,7 +143,7 @@ void BlockElement::resetOccupySituation()
 	this->setBlockDefinition(newDef);
 }
 
-void BlockElement::resetSowingSituation(FieldOrTetro isField)
+void BlockElement::resetShowingSituation(FieldOrTetro isField)
 {
 	auto curDef = this->getBlockDefinition();
 
@@ -204,13 +204,13 @@ bool BlockElement::leftAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x - 1, curPosition.y);
-	if (newPosition.x >= 0 && newPosition.y <= 19)
+	if (newPosition.x >= FIELD_LEFT_BOARD && newPosition.y <= FIELD_TOP)
 	{
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
 		//CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x,newPosition.y);
 		return isMoveable;
 	}
-	else if (newPosition.x < 0 )
+	else if (newPosition.x < FIELD_LEFT_BOARD)
 	{
 		if (getBlockDefinition()._isOccupOrEmpty == OCCUPIED)
 		{
@@ -225,13 +225,13 @@ bool BlockElement::rightAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x + 1, curPosition.y);
-	if (newPosition.x < BOARD_WIDTH && newPosition.y <= 19)
+	if (newPosition.x <= FIELD_LEFT_BOARD && newPosition.y <= FIELD_TOP)
 	{
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
 		//CCLOG("can i move:%d.Point!:%f,%f", isMoveable, newPosition.x, newPosition.y);
 		return isMoveable;
 	}
-	else if (newPosition.x >= BOARD_WIDTH)
+	else if (newPosition.x > FIELD_RIGHT_BOARD)
 	{
 		if (getBlockDefinition()._isOccupOrEmpty == OCCUPIED)
 		{
@@ -246,14 +246,14 @@ bool BlockElement::downAble()
 {
 	Point curPosition = this->toBoardCoordinate();
 	Point newPosition = Point(curPosition.x , curPosition.y - 1);
-	if (newPosition.y >= 0 && newPosition.y <= 19)
+	if (newPosition.y >= FIELD_BOTTOM && newPosition.y <= FIELD_TOP)
 	{
-		CCLOG("can i move:.Point!:%f,%f", newPosition.x, newPosition.y);
+		//CCLOG("can i move:.Point!:%f,%f", newPosition.x, newPosition.y);
 		bool isMoveable = !(this->getGameBoard()->isPointOccupied(newPosition));
 		
 		return isMoveable;
 	}
-	else if (newPosition.y < 0 )
+	else if (newPosition.y < FIELD_BOTTOM)
 	{
 		if (getBlockDefinition()._isOccupOrEmpty == OCCUPIED)
 		{
@@ -262,7 +262,7 @@ bool BlockElement::downAble()
 		else
 			return true;
 	}
-	else if (newPosition.y > 19)
+	else if (newPosition.y > FIELD_TOP)
 	{
 		return true;
 	}
@@ -274,11 +274,11 @@ bool BlockElement::rotateAble(int x,int y)
 	curPosition.x += x;
 	curPosition.y += y;
 	//if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0 || curPosition.y > 19)
-	if (curPosition.x < 0 || curPosition.x > 9 || curPosition.y < 0)
+	if (curPosition.x < FIELD_LEFT_BOARD || curPosition.x > FIELD_RIGHT_BOARD || curPosition.y < FIELD_BOTTOM)
 	{
 		return false;
 	}
-	else if (curPosition.y > 19)
+	else if (curPosition.y > FIELD_TOP)
 	{
 		return true;
 	}
@@ -319,9 +319,20 @@ GameBoard* BlockElement::getGameBoard()
 void BlockElement::lockOn()
 {
 	Point point = this->toBoardCoordinate();
-	if (point.x >= 0 && point.x <= 9 && point.y >= 0 && point.y <= 19)
+	if (point.x >= FIELD_LEFT_BOARD && point.x <= FIELD_RIGHT_BOARD && point.y >= FIELD_BOTTOM && point.y <= FIELD_TOP)
 	{
-		this->getGameBoard()->switchShowing(this->toBoardCoordinate());
+		this->getGameBoard()->switchShowing(point);
+		if (point.y > this->getGameBoard()->getCurTop() && point.y < FIELD_TOP)
+		{
+			this->getGameBoard()->setCurTop(point.y);
+			this->getGameBoard()->checkClear();
+		}
+
+		if (point.y == FIELD_TOP)
+		{
+			this->getGameBoard()->gameOver();
+		}
+		
 	}
 	
 }

@@ -30,6 +30,7 @@ GameBoard::GameBoard()
 	for (int i = 0; i < BOARD_HEIGHT; i++)
 		playFieldVector[i].resize(BOARD_WIDTH);
 
+	curTop = FIELD_BOTTOM;
 	curTetromino = nullptr;
 	initPlayField();
 }
@@ -45,11 +46,11 @@ GameBoard::~GameBoard()
 
 void GameBoard::initPlayField()
 {
-	for (int y = BOARD_HEIGHT - 1; y >= 0; y--) //19-0
+	for (int y = FIELD_TOP; y >= FIELD_BOTTOM; y--) //19-0
 	{
-		for (int x = 0; x < BOARD_WIDTH; x++)   //0-9
+		for (int x = FIELD_LEFT_BOARD; x <= FIELD_RIGHT_BOARD; x++)   //0-9
 		{
-#if 1
+#if 0
 			if (y == 16 && x == 8)
 			{
 				BlockDef blockDef = { PLAYFIELD, OCCUPIED, TETROMINO_TYPE::Z, x, y };
@@ -108,6 +109,11 @@ void GameBoard::gameStart()
 	}
 
 #endif	
+}
+
+void GameBoard::gameOver()
+{
+	this->curTetromino->stopFalling();
 }
 
 void GameBoard::switchTetromino()
@@ -177,4 +183,70 @@ void GameBoard::onSoftDropStop()
 		return;
 	}
 
+}
+
+void GameBoard::checkClear()
+{
+	for (int y = 0; y < getCurTop(); y++)
+	{
+		for (int x = 0; x <= FIELD_RIGHT_BOARD; x++)
+		{
+			if (playFieldVector[y][x]->isMeEmpty())
+			{
+				break;
+			}
+			if (x == FIELD_RIGHT_BOARD)
+			{
+				CCLOG("need to be cleared!");
+				clearLine(y);
+			}
+		}
+	}
+}
+
+void GameBoard::clearLine(int line)
+{
+	Vector<FiniteTimeAction*> vector_action;
+	int tem = line;
+	tem >>= 1;
+	tem <<= 1;
+	if (tem == line)
+	{
+
+		for (int x = FIELD_LEFT_BOARD; x <= FIELD_RIGHT_BOARD; x++)
+		{
+			auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[line][x])), nullptr);
+			vector_action.pushBack(action);
+		}
+	}
+	else
+	{
+		for (int x = FIELD_RIGHT_BOARD; x >= FIELD_LEFT_BOARD; x--)
+		{
+			auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[line][x])), nullptr);
+			vector_action.pushBack(action);
+		}
+	}
+	//clear
+
+	auto fall = CCCallFunc::create(CC_CALLBACK_0(GameBoard::fallLine, this, line));
+	vector_action.pushBack(fall);
+	auto action = Sequence::create(vector_action);
+	//fall
+	
+	this->runAction(action);
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("deletechips.wav");
+}
+
+void GameBoard::fallLine(int line)
+{
+	for (int y = line; y <= getCurTop(); y++)
+	{
+		for (int x = 0; x <= FIELD_RIGHT_BOARD; x++)
+		{
+			BlockDef def = playFieldVector[y + 1][x]->getBlockDefinition();
+			def._coordinateY -= 1;
+			playFieldVector[y][x]->reShowing(def);
+		}
+	}
 }

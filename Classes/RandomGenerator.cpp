@@ -35,11 +35,7 @@ RandomGenerator* RandomGenerator::getInstance()
 
 void RandomGenerator::fillBag()
 {
-	for (int i = 0; i < 7; i++)
-		CCLOG("%d,bag%d__before", bag[i], i);
 	random_shuffle(bag.begin(), bag.end(), CC_CALLBACK_1(RandomGenerator::myRand,this));
-	for (int i = 0; i < 7; i++)
-		CCLOG("%d,bag%d__after", bag[i], i);
 }
 
 int RandomGenerator::myRand(int index)

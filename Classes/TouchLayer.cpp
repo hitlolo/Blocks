@@ -51,7 +51,7 @@ void TouchLayer::getAndSetButtons()
 
 }
 
-void TouchLayer::onLongLeftClick(Object *pSender, ui::Widget::TouchEventType type)
+void TouchLayer::onLongLeftClick(Ref *pSender, ui::Widget::TouchEventType type)
 {
 	switch (type)
 	{
@@ -70,7 +70,7 @@ void TouchLayer::onLongLeftClick(Object *pSender, ui::Widget::TouchEventType typ
 	}
 }
 
-void TouchLayer::onLongRightClick(Object *pSender, ui::Widget::TouchEventType type)
+void TouchLayer::onLongRightClick(Ref *pSender, ui::Widget::TouchEventType type)
 {
 	switch (type)
 	{
@@ -89,12 +89,12 @@ void TouchLayer::onLongRightClick(Object *pSender, ui::Widget::TouchEventType ty
 	}
 }
 
-void TouchLayer::onLongDownClick(Object *pSender, ui::Widget::TouchEventType type)
+void TouchLayer::onLongDownClick(Ref *pSender, ui::Widget::TouchEventType type)
 {
 	switch (type)
 	{
 	case ui::Widget::TouchEventType::BEGAN:
-		this->schedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongDown), 0.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongDown), 0.1f);
 		this->getMyTouchDelegate()->onSoftDropStart();
 		break;
 	case ui::Widget::TouchEventType::MOVED:
@@ -110,7 +110,7 @@ void TouchLayer::onLongDownClick(Object *pSender, ui::Widget::TouchEventType typ
 	}
 }
 
-void TouchLayer::onLongRotateClick(Object *pSender, ui::Widget::TouchEventType type)
+void TouchLayer::onLongRotateClick(Ref *pSender, ui::Widget::TouchEventType type)
 {
 	switch (type)
 	{
@@ -132,6 +132,7 @@ void TouchLayer::onLongRotateClick(Object *pSender, ui::Widget::TouchEventType t
 
 void TouchLayer::onLongLeft(float time)
 {
+	
 	this->getMyTouchDelegate()->onLeft();
 }
 
@@ -153,30 +154,36 @@ void TouchLayer::onLongRotate(float time)
 
 void TouchLayer::onLeft(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onLeft();
 }
 
 void TouchLayer::onRight(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onRight();
 }
 
 void TouchLayer::onRotation(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onRotate();
 }
 
 void TouchLayer::onDown(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onDown();
 }
 
 void TouchLayer::onHold(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onHold();
 }
 
 void TouchLayer::onHardDrop(Ref* sender)
 {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onHardDrop();
 }

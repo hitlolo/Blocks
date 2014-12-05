@@ -5,6 +5,7 @@
 #include "TouchDelegate.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "SimpleAudioEngine.h"
 
 
 USING_NS_CC;
@@ -45,16 +46,13 @@ private:
 
 	void onHardDrop(Ref* sender);
 
-	void onLongLeftClick(Object *pSender, ui::Widget::TouchEventType type);
+	void onLongLeftClick(Ref *pSender, ui::Widget::TouchEventType type);
 
-	void onLongRightClick(Object *pSender, ui::Widget::TouchEventType type);
+	void onLongRightClick(Ref *pSender, ui::Widget::TouchEventType type);
 
-	void onLongDownClick(Object *pSender, ui::Widget::TouchEventType type);
+	void onLongDownClick(Ref *pSender, ui::Widget::TouchEventType type);
 
-	void onLongRotateClick(Object *pSender, ui::Widget::TouchEventType type);
-
-
-
+	void onLongRotateClick(Ref *pSender, ui::Widget::TouchEventType type);
 
 };
 
