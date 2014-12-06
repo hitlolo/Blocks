@@ -7,10 +7,11 @@
 #include "RandomGenerator.h"
 #include "TouchDelegate.h"
 #include "SimpleAudioEngine.h"
+#include "BoardInterface.h"
+
 
 USING_NS_CC;
-
-class GameBoard :public Layer,public TouchDelegate
+class GameBoard :public Layer, public TouchDelegate, public BoardInterface
 {
 
 public:
@@ -23,15 +24,9 @@ public:
 
 	~GameBoard();
 
-	CC_SYNTHESIZE(int, curTop, CurTop);
+	virtual bool isPointOccupied(Point point) override;
 
-	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
-
-	CC_SYNTHESIZE(class Tetromino*, nextTetromino, NextTetromino);
-
-	CC_SYNTHESIZE(class Tetromino*, ghostTetromino, ghostTetromino);
-
-	bool isPointOccupied(Point);
+	virtual TETROMINO_TYPE getTetroType() override;
 
 	void switchShowing(Point);
 
@@ -53,11 +48,27 @@ public:
 
 	virtual void onSoftDropStop() override;
 
-	void gameOver();
+	virtual void gameOver() override;
 
-	void checkClear();
+	virtual void checkClear() override;
 
 private:
+
+	int curTop;
+
+	virtual void setCurTop(int) override;
+
+	virtual int  getCurTop() override;
+
+	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
+
+	CC_SYNTHESIZE(class Tetromino*, nextTetromino, NextTetromino);
+
+	CC_SYNTHESIZE(class Tetromino*, ghostTetromino, ghostTetromino);
+
+	CC_SYNTHESIZE(TETROMINO_TYPE, curTetroType, CurTetroType);
+
+	std::vector<int> comboVector;
 	
 	std::vector<std::vector<class BlockElement*>> playFieldVector;
 	
@@ -65,7 +76,7 @@ private:
 
 	void gameStart(); 
 
-	void clearLine(int[]);
+	void clearLine(std::vector<int>&);
 
 	void fallLine(int);
 	

@@ -55,8 +55,8 @@ typedef enum class piece_type
 	L,
 	Z,
 	S,
-	T,
-	NOTHING      //means this is for board
+	T,	      
+	NOTHING //means this is for board
 }TETROMINO_TYPE;
 
 typedef enum class piece_state
@@ -74,6 +74,7 @@ typedef struct
 	TETROMINO_TYPE    _tetroType;
 	int               _coordinateX;
 	int               _coordinateY;
+	bool              _isGhost;
 
 }BlockDef;
 

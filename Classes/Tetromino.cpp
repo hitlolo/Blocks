@@ -9,7 +9,7 @@ bool Tetromino::init()
 	}
 	
 //	this->setAnchorPoint(Point(0.5, 0.5));
-#if 1
+#if 0
 	auto grid = Sprite::create("grid1.png");
 	grid->setAnchorPoint(Point(0, 0));
 	this->addChild(grid);
@@ -24,9 +24,9 @@ bool Tetromino::init()
 
 
 
-Tetromino* Tetromino::create(TETROMINO_TYPE type)
+Tetromino* Tetromino::create(TETROMINO_TYPE type,bool ghost)
 {
-	Tetromino *tetromino = new Tetromino(type);
+	Tetromino *tetromino = new Tetromino(type, ghost);
 	if (tetromino && tetromino->init())
 	{
 		tetromino->autorelease();
@@ -41,7 +41,7 @@ Tetromino* Tetromino::create(TETROMINO_TYPE type)
 
 }
 
-Tetromino::Tetromino(TETROMINO_TYPE type)
+Tetromino::Tetromino(TETROMINO_TYPE type, bool ghost)
 {
 	this->setContentSize(Size(BLOCK_WIDTH * PIECE_SIZE, BLOCK_HEIGHT * PIECE_SIZE));
 	shapesVector.resize(SHAPE_SIZE);
@@ -50,7 +50,7 @@ Tetromino::Tetromino(TETROMINO_TYPE type)
 		blocksVector[i].resize(PIECE_SIZE);
 	setShapesByType(type);
 
-
+	this->setIsGhost(ghost); 
 }
 
 Tetromino::~Tetromino()
@@ -61,24 +61,29 @@ Tetromino::~Tetromino()
 void Tetromino::initBlocks()
 {
 	char16_t mask = 0x8000;
-
-	//for (int y = 0; y < PIECE_SIZE; y++)
-	//{
-	//	for (int x = 0; x < PIECE_SIZE; x++)
+	TETROMINO_TYPE type =  getType();
 	for (int y = PIECE_SIZE - 1; y >= 0; y--)
 	{
 		for (int x = 0; x < PIECE_SIZE; x++)
 		{
 			shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
 			mask = mask >> 1;
+			if (getIsGhost())
+			{
+				BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], type, x, y, true };
+				auto blockCell = BlockGhost::create(blockDef);
+				this->addChild(blockCell);
+				blocksVector[y][x] = blockCell;
+			}
+			else
+			{
+				BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], type, x, y ,false};
+				auto blockCell = BlockElement::create(blockDef);
+				this->addChild(blockCell);
+				blocksVector[y][x] = blockCell;
+			}
 			
-			BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], getType(), x, y };
-			auto blockCell = BlockElement::create(blockDef);
-			this->addChild(blockCell);
-			blocksVector[y][x] = blockCell;
 
-		//	CCLOG("%f,%f,cell positon", blockCell->getPositionX(), blockCell->getPositionY());
-		//	CCLOG("%f,%f,cell ANCHOR", blockCell->getAnchorPoint().x, blockCell->getAnchorPoint().y);
 		}
 	}
 }
@@ -271,7 +276,7 @@ bool Tetromino::rightAble()
 			{
 				continue;
 			}
-			CCLOG("%d,%d,i am not empty", y, x);
+			//CCLOG("%d,%d,i am not empty", y, x);
 			bool is_rightable = this->blocksVector[y][x]->rightAble();
 			if (is_rightable)
 			{
@@ -400,7 +405,7 @@ void Tetromino::lockOn()
 			}
 			else
 			{
-				blocksVector[y][x]->lockOn();
+				dynamic_cast<BlockElement*>(blocksVector[y][x])->lockOn();
 			}
 		}
 	}
@@ -446,6 +451,13 @@ void Tetromino::setInitStateToPre()
 	this->setPosition(PRE_POINT);
 }
 
+void  Tetromino::setInitStateToGhost()
+{
+	this->setCurState(TETROMINO_STATE::GHOST);
+	this->setCurMobility(false);
+	this->setPosition(0,0);
+}
+
 void Tetromino::switchState()
 {
 	if (curState == TETROMINO_STATE::SHOW)
@@ -474,7 +486,7 @@ void Tetromino::reShowing()
 			shapeMatrix[y][x] = (bool)(mask & shapesVector[curShape]);
 			mask = mask >> 1;
 			BlockDef blockDef = { TETROMINO, shapeMatrix[y][x], getType(), x, y };
-			blocksVector[y][x]->reShowing(blockDef);
+			dynamic_cast<BlockElement*>(blocksVector[y][x])->reShowing(blockDef);
 
 		}
 	}
@@ -488,4 +500,64 @@ bool Tetromino::isMoveAble()
 bool Tetromino::isFalling()
 {
 	return isScheduled(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown));
+}
+
+
+void Tetromino::getHaunted()
+{
+	if (!isGhost)
+	{
+		return;
+	}
+	TETROMINO_TYPE type = dynamic_cast<GameBoard*> (getParent())->getCurTetroType();
+	int shape = dynamic_cast<GameBoard*> (getParent())->getCurTetromino()->curShape;
+	if (this->getType() != type)
+	{
+		this->ghostRefreshType(type);
+		this->ghostRefreshShape(shape);
+	}
+	
+	if (shape!=this->curShape)
+	{
+		this->ghostRefreshShape(shape);
+	}
+		
+	Point initPosition = dynamic_cast<GameBoard*> (getParent())->getCurTetromino()->getPosition();
+	this->setPosition(initPosition.x, initPosition.y);
+	while (downAble())
+	{
+		this->setPosition(initPosition.x, initPosition.y -= 32);
+	};
+	
+}
+
+void Tetromino::ghostRefreshType(TETROMINO_TYPE type)
+{
+	this->setShapesByType(type);
+}
+
+void Tetromino::ghostRefreshShape(int shape)
+{
+	char16_t mask = 0x8000;
+
+	for (int y = PIECE_SIZE - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < PIECE_SIZE; x++)
+		{
+			if (shapeMatrix[y][x] == static_cast<bool>(mask & shapesVector[shape]))
+			{
+				mask = mask >> 1;
+				continue;
+			}
+			else
+			{
+				shapeMatrix[y][x] = (bool)(mask & shapesVector[shape]);
+
+				blocksVector[y][x]->switchShowing();
+			}
+			mask = mask >> 1;
+		}
+	}
+
+	this->setCurShape(shape);
 }

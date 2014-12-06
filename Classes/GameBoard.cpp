@@ -6,11 +6,7 @@ bool GameBoard::init()
 	{
 		return false;
 	}
-	//Point originPoint = Director::getInstance()->getVisibleOrigin();
-	//Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	//this->ignoreAnchorPointForPosition(true);	
-	//this->setAnchorPoint(Point(0, 0));
 	this->setPosition(BOARD_AT);
 #if 1
 	auto grid = Sprite::create("grid.png");
@@ -29,6 +25,8 @@ GameBoard::GameBoard()
 	playFieldVector.resize(BOARD_HEIGHT);
 	for (int i = 0; i < BOARD_HEIGHT; i++)
 		playFieldVector[i].resize(BOARD_WIDTH);
+	
+	comboVector.resize(4);
 
 	curTop = FIELD_BOTTOM;
 	curTetromino = nullptr;
@@ -72,11 +70,26 @@ void GameBoard::initPlayField()
 
 }
 
+void GameBoard::setCurTop(int top)
+{
+	this->curTop = top;
+}
+
+int  GameBoard::getCurTop()
+{
+	return this->curTop;
+}
 
 bool GameBoard::isPointOccupied(Point point)
 {
 	return playFieldVector[point.y][point.x]->getBlockDefinition()._isOccupOrEmpty;
 }
+
+TETROMINO_TYPE GameBoard::getTetroType()
+{
+	return this->getCurTetroType();
+}
+
 
 void GameBoard::switchShowing(Point point)
 {
@@ -87,13 +100,20 @@ void GameBoard::switchShowing(Point point)
 void GameBoard::gameStart()
 {
 
-	auto tetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag());	
+	auto tetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag(),false);	
 	tetro->setInitStateToTetro();
 	this->addChild(tetro);
-
 	this->setCurTetromino(tetro);
+	this->setCurTetroType(tetro->getType());
+
+	auto ghost = Tetromino::create(tetro->getType(),true);
+	this->setghostTetromino(ghost);
+	ghost->setInitStateToGhost();
+	this->addChild(ghost);
+	ghost->getHaunted();
+
 	
-	auto preTetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag());	
+	auto preTetro = Tetromino::create((TETROMINO_TYPE)RandomGenerator::getInstance()->getItemfromBag(),false);	
 	preTetro->setInitStateToPre();
 	this->addChild(preTetro);
 	this->setNextTetromino(preTetro);
@@ -125,21 +145,29 @@ void GameBoard::switchTetromino()
 
 	this->setCurTetromino(nextTetromino);
 	this->setNextTetromino(tem);
+
+	this->setCurTetroType(getCurTetromino()->getType());
+
+	this->ghostTetromino->getHaunted();
 }
 
 void GameBoard::onLeft()
 {
 	curTetromino->onLeft();
+	ghostTetromino->getHaunted();
 }
 
 void GameBoard::onRight()
 {
 	curTetromino->onRight();
+	ghostTetromino->getHaunted();
 }
 
 void GameBoard::onRotate() 
 {
 	curTetromino->onRotate();
+	ghostTetromino->getHaunted();
+//	ghostTetromino->setCurShape(curTetromino->getCurShape());
 }
 
 void GameBoard::onDown()
@@ -187,7 +215,8 @@ void GameBoard::onSoftDropStop()
 
 void GameBoard::checkClear()
 {
-	int line[4] = {-1,-1,-1,-1};
+	for (int i = 0; i < 4; i++)
+		comboVector[i] = -1;
 	int index = 0;
 	for (int y = 0; y < getCurTop(); y++)
 	{
@@ -199,7 +228,7 @@ void GameBoard::checkClear()
 			}
 			if (x == FIELD_RIGHT_BOARD)
 			{
-				line[index++] = y;
+				comboVector[index++] = y;
 				
 			}
 		}
@@ -210,32 +239,32 @@ void GameBoard::checkClear()
 	}
 	else
 	{
-		clearLine(line);
+		clearLine(comboVector);
 	}
 	
 }
 
-void GameBoard::clearLine(int lineArray[])
+void GameBoard::clearLine(std::vector<int> &lineVector)
 {
 	Vector<FiniteTimeAction*> vector_action;
 	int combo = 0;
 	for (int i = 0; i < 4; i++)
 	{
-		if (lineArray[i] == -1)
+		if (lineVector[i] == -1)
 		{
 			continue;
 		}
 		else
 		{	
 			combo++;
-			int tem = lineArray[i];
+			int tem = lineVector[i];
 			tem >>= 1;
 			tem <<= 1;
-			if (tem == lineArray[i])
+			if (tem == lineVector[i])
 			{
 				for (int x = FIELD_LEFT_BOARD; x <= FIELD_RIGHT_BOARD; x++)
 				{
-					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineArray[i] - (combo - 1)][x])), nullptr);
+					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineVector[i] - (combo - 1)][x])), nullptr);
 					vector_action.pushBack(action);
 				}
 			}
@@ -243,12 +272,12 @@ void GameBoard::clearLine(int lineArray[])
 			{
 				for (int x = FIELD_RIGHT_BOARD; x >= FIELD_LEFT_BOARD; x--)
 				{
-					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineArray[i] - (combo - 1)][x])), nullptr);
+					auto action = Sequence::create(DelayTime::create(0.1f), CCCallFunc::create(CC_CALLBACK_0(BlockElement::switchShowing, playFieldVector[lineVector[i] - (combo - 1)][x])), nullptr);
 					vector_action.pushBack(action);
 				}
 			}
 			
-			auto fall = CCCallFunc::create(CC_CALLBACK_0(GameBoard::fallLine, this, lineArray[i] - (combo - 1)));
+			auto fall = CCCallFunc::create(CC_CALLBACK_0(GameBoard::fallLine, this, lineVector[i] - (combo - 1)));
 			vector_action.pushBack(fall);
 			
 		}
@@ -278,5 +307,6 @@ void GameBoard::fallLine(int line)
 	}
 				
 	this->setCurTop(getCurTop() - 1);
+	this->ghostTetromino->getHaunted();
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("deletechips.wav");
 }

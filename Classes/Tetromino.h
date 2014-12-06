@@ -4,7 +4,8 @@
 #include "cocos2d.h"
 #include "GameData.h"
 #include "BlockElement.h"
-
+#include "BlockGhost.h"
+#include "GameBoard.h"
 #include "SuperRotationSystem.h"
 #include "RandomGenerator.h"
 #include "SimpleAudioEngine.h"
@@ -17,9 +18,9 @@ public:
 
 	virtual bool init() override;
 
-	static Tetromino* create(TETROMINO_TYPE);
+	static Tetromino* create(TETROMINO_TYPE,bool);
 
-	Tetromino(TETROMINO_TYPE);
+	Tetromino(TETROMINO_TYPE,bool);
 
 	~Tetromino();
 
@@ -28,6 +29,8 @@ public:
 	void setInitStateToTetro();
 
 	void setInitStateToPre();
+
+	void setInitStateToGhost();
 
 	void switchState();
 
@@ -38,9 +41,11 @@ private:
 
 	std::vector<char16_t>             shapesVector;
 
-	std::vector<std::vector<class BlockElement*>> blocksVector;
+	std::vector<std::vector<class Block*>> blocksVector;
 
 	CC_SYNTHESIZE(TETROMINO_STATE, curState, CurState);
+
+	CC_SYNTHESIZE(bool, isGhost, IsGhost);
 
 	CC_SYNTHESIZE(bool, mobility, CurMobility);
 
@@ -90,6 +95,12 @@ private:
 	bool isFalling();
 
 	void runLockDelay();
+
+	void getHaunted();
+
+	void ghostRefreshType(TETROMINO_TYPE type);
+
+	void ghostRefreshShape(int shape);
 };
 
 

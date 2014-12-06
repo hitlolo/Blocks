@@ -66,6 +66,12 @@
     <ClCompile Include="..\Classes\RandomGenerator.cpp">
       <Filter>class\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Block.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BlockGhost.cpp">
+      <Filter>class\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -111,6 +117,15 @@
       <Filter>class\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\RandomGenerator.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Block.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BoardInterface.h">
+      <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BlockGhost.h">
       <Filter>class\Elements</Filter>
     </ClInclude>
   </ItemGroup>

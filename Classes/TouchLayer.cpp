@@ -59,11 +59,16 @@ void TouchLayer::onLongLeftClick(Ref *pSender, ui::Widget::TouchEventType type)
 		this->schedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongLeft), 0.2f);
 		break;
 	case ui::Widget::TouchEventType::MOVED:
+
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongLeft));
 		break;
 	case ui::Widget::TouchEventType::CANCELED:
+		if (isScheduled(CC_SCHEDULE_SELECTOR(TouchLayer::onLongLeft)))
+		{
+			this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongLeft));
+		}
 		break;
 	default:
 		break;
@@ -78,11 +83,16 @@ void TouchLayer::onLongRightClick(Ref *pSender, ui::Widget::TouchEventType type)
 		this->schedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRight), 0.2f);
 		break;
 	case ui::Widget::TouchEventType::MOVED:
+
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRight));
 		break;
 	case ui::Widget::TouchEventType::CANCELED:
+		if (isScheduled(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRight)))
+				{
+					this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRight));
+				}
 		break;
 	default:
 		break;
@@ -98,12 +108,18 @@ void TouchLayer::onLongDownClick(Ref *pSender, ui::Widget::TouchEventType type)
 		this->getMyTouchDelegate()->onSoftDropStart();
 		break;
 	case ui::Widget::TouchEventType::MOVED:
+
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongDown));
 		this->getMyTouchDelegate()->onSoftDropStop();
 		break;
 	case ui::Widget::TouchEventType::CANCELED:
+		if (isScheduled(CC_SCHEDULE_SELECTOR(TouchLayer::onLongDown)))
+				{
+					this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongDown));
+					this->getMyTouchDelegate()->onSoftDropStop();
+				}
 		break;
 	default:
 		break;
@@ -118,11 +134,16 @@ void TouchLayer::onLongRotateClick(Ref *pSender, ui::Widget::TouchEventType type
 		this->schedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRotate), 0.2f);
 		break;
 	case ui::Widget::TouchEventType::MOVED:
+
 		break;
 	case ui::Widget::TouchEventType::ENDED:
 		this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRotate));
 		break;
 	case ui::Widget::TouchEventType::CANCELED:
+		if (isScheduled(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRotate)))
+				{
+					this->unschedule(CC_SCHEDULE_SELECTOR(TouchLayer::onLongRotate));
+				}
 		break;
 	default:
 		break;

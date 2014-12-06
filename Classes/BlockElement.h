@@ -2,11 +2,13 @@
 #define BLOCK_BLOCK_ELEMENT
 
 #include "cocos2d.h"
-#include "GameData.h"
-#include "GameBoard.h"
+
+#include "Block.h"
+
 USING_NS_CC;
 
-class BlockElement :public Sprite
+
+class BlockElement :public Block
 {
 public:
 	
@@ -18,45 +20,12 @@ public:
 	
 	~BlockElement();
 
-	Point toBoardCoordinate();
-
-	void switchShowing();
-
 	void reShowing(BlockDef&);
 
 	void lockOn();
 private:
 
-	void createByDef(const BlockDef&);
+	virtual std::string getBlockFileName() override;
 
-	CC_SYNTHESIZE_PASS_BY_REF(BlockDef, blockDef, BlockDefinition);
-
-	Point parentCenter;
-
-	Point getParentCenter();
-
-	void setParentCenter();
-
-	std::string getBlockFileName();
-
-	void createByFieldLaw(const BlockDef& block_def);
-
-	void createByTetroLaw(const BlockDef& block_def);
-
-	bool isMeEmpty();
-
-	bool leftAble();
-
-	bool rightAble();
-
-	bool downAble();
-
-	bool rotateAble(int = 0,int = 0); 
-	
-	void resetOccupySituation();
-
-	void resetShowingSituation(FieldOrTetro);
-
-	class GameBoard* getGameBoard();
 };
 #endif
