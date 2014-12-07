@@ -13,7 +13,6 @@ RandomGenerator::RandomGenerator()
 		bag[i] = i;
 	}
 		
-	
 }
 
 RandomGenerator::~RandomGenerator()
@@ -58,4 +57,24 @@ int RandomGenerator::getItemfromBag()
 		itemIndex = 0;
 	}
 	return type;
+}
+
+int RandomGenerator::getRandomFromRange(int from, int to)
+{
+	std::uniform_int_distribution<int> dist(from, to);
+	return dist(*mt);
+}
+float RandomGenerator::getRandomFromRange(float from, float to)
+{
+	std::uniform_real_distribution<float> dist(from, to);
+	return dist(*mt);
+}
+
+Point RandomGenerator::getRandomPosition()
+{
+	std::uniform_int_distribution<int> distX(0,1408);
+	std::uniform_int_distribution<int> distY(0,768);
+	int x = distX(*mt);
+	int y = distY(*mt);
+	return Point(x, y);
 }

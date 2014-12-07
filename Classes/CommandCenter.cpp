@@ -40,7 +40,7 @@ void CommandCenter::goState(GAME_STATE state)
 
 void   CommandCenter::toNextScene(Scene* scene)
 {
-	TransitionScene *transition = TransitionFade::create(0.3f, scene);
+	TransitionScene *transition = TransitionFade::create(1.3f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
 

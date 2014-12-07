@@ -8,12 +8,19 @@ bool GameBoard::init()
 	}
 
 	this->setPosition(BOARD_AT);
-#if 1
+
+	auto panel = Sprite::create("blue_panel.png");
+	this->addChild(panel);
+	panel->setAnchorPoint(Point::ZERO);
+	panel->setPosition(Point(-5,-5));
+#if 0
 	auto grid = Sprite::create("grid.png");
 	grid->setAnchorPoint(Point(0, 0));
 	this->addChild(grid);
 	grid->setOpacity(100);
 #endif
+
+	initPlayField();
 	gameStart();
 	return true;
 }
@@ -30,7 +37,7 @@ GameBoard::GameBoard()
 
 	curTop = FIELD_BOTTOM;
 	curTetromino = nullptr;
-	initPlayField();
+	
 }
 
 

@@ -73,7 +73,7 @@ void GameLogo::startGame()
 
 void GameLogo::nextScene()
 {
-	CommandCenter::getInstance()->goState(GAME_STATE::GAME);
+	CommandCenter::getInstance()->goState(GAME_STATE::MENU);
 }
 
 void GameLogo::onExit()

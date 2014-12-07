@@ -72,6 +72,9 @@
     <ClCompile Include="..\Classes\BlockGhost.cpp">
       <Filter>class\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\OptionLayer.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BlockGhost.h">
       <Filter>class\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionLayer.h">
+      <Filter>class\Gaming</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

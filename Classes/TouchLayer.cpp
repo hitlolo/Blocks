@@ -23,6 +23,7 @@ void TouchLayer::getAndSetButtons()
 	auto leftButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("leftButton"));
 	if (leftButton)
 	{
+
 		leftButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongLeftClick, this));
 		leftButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onLeft, this));
 	}
@@ -38,6 +39,7 @@ void TouchLayer::getAndSetButtons()
 	auto rotateButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("rotateButton"));
 	if (rotateButton)
 	{
+		
 		rotateButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongRotateClick, this));
 		rotateButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onRotation, this));
 	}

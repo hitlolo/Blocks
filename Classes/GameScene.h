@@ -5,6 +5,8 @@
 #include "GameBoard.h"
 #include "SimpleAudioEngine.h"
 #include "TouchLayer.h"
+#include "cocostudio/CocoStudio.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -24,7 +26,11 @@ private:
 
 	Size  visibleSize;
 
-	void addLayers();
+	void  addLayers();
+
+	std::vector<Node*> starVector;
+
+	void startShining(float time);
 };
 
 

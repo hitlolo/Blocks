@@ -19,7 +19,6 @@ bool GameScene::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	
 	addLayers();
-
 	return true;
 }
 
@@ -35,7 +34,16 @@ void GameScene::addLayers()
 	background->setPosition(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2);
 	this->addChild(background);
 
+	for (int i = 0; i < 20; i++)
+	{
+		auto starNode = Sprite::create("particle01.png");
+		this->addChild(starNode);//假设this是即将显示的scene 
+		starVector.push_back(starNode);
+		starNode->setPosition(RandomGenerator::getInstance()->getRandomPosition());
+	
+	}
 
+	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::startShining), 5.5f);
 #if 0
 	auto gameBoard = LayerColor::create(Color4B(125, 126, 125, 255), BLOCK_WIDTH * BOARD_WIDTH, BLOCK_WIDTH * BOARD_HEIGHT);
 //	gameBoard->setContentSize(Size(BLOCK_WIDTH * BOARD_WIDTH, BLOCK_WIDTH * BOARD_HEIGHT));
@@ -59,4 +67,14 @@ void GameScene::addLayers()
 GameScene::~GameScene()
 {
 	this->removeAllChildrenWithCleanup(true);
+}
+
+void GameScene::startShining(float time)
+{
+
+	for (auto star : starVector)
+	{
+		star->setPosition(RandomGenerator::getInstance()->getRandomPosition());
+	}
+
 }

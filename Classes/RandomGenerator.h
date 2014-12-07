@@ -17,6 +17,12 @@ public:
 
 	int getItemfromBag();
 
+	Point getRandomPosition();
+
+	int getRandomFromRange(int, int);
+
+	float getRandomFromRange(float, float);
+
 private:
 	static RandomGenerator* _randomGenerator;
 
@@ -31,6 +37,7 @@ private:
 	std::mt19937*      mt;
 
 	int myRand(int index);
+
 };
 
 
