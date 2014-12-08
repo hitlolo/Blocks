@@ -19,12 +19,13 @@ bool GameScene::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	
 	addLayers();
+	
 	return true;
 }
 
 void GameScene::addLayers()
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Tetris.wav");
+	
 	auto background = Sprite::create("bg.png");
 	float scale_x = visibleSize.width / background->getContentSize().width;
 	float scale_y = visibleSize.height / background->getContentSize().height;
@@ -57,6 +58,9 @@ void GameScene::addLayers()
 
 	auto gameBoard = GameBoard::create();
 	this->addChild(gameBoard);
+
+	auto scoreLayer = ScoreLayer::create();
+	this->addChild(scoreLayer);
 
 	auto touchLayer = TouchLayer::create();
 	this->addChild(touchLayer);

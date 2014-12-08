@@ -5,10 +5,11 @@
 #include "TouchDelegate.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include "OptionLayer.h"
 
 USING_NS_CC;
 
-
+using namespace ui;
 class TouchLayer :public Layer
 {
 
@@ -51,6 +52,10 @@ private:
 	void onLongDownClick(Ref *pSender, ui::Widget::TouchEventType type);
 
 	void onLongRotateClick(Ref *pSender, ui::Widget::TouchEventType type);
+
+	void pauseCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type);
+
+	/*void onSettingCallBack(Ref* sender);*/
 
 };
 

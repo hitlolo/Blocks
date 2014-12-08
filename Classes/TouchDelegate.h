@@ -23,6 +23,8 @@ public:
 	virtual void onSoftDropStop() = 0;
 
 	virtual void onHold() = 0;
+	
+	virtual void onPause() = 0;
 
 
 };

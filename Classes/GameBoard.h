@@ -44,6 +44,8 @@ public:
 
 	virtual void onHold() override;
 
+	virtual void onPause() override;
+
 	virtual void onSoftDropStart() override;
 
 	virtual void onSoftDropStop() override;
@@ -69,6 +71,8 @@ private:
 	CC_SYNTHESIZE(class Tetromino*, ghostTetromino, ghostTetromino);
 
 	CC_SYNTHESIZE(TETROMINO_TYPE, curTetroType, CurTetroType);
+
+	CC_SYNTHESIZE(bool, isPaused, IsPaused);
 
 	std::vector<int> comboVector;
 	

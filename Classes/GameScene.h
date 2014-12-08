@@ -3,10 +3,9 @@
 
 #include "cocos2d.h"
 #include "GameBoard.h"
-#include "SimpleAudioEngine.h"
 #include "TouchLayer.h"
 #include "cocostudio/CocoStudio.h"
-#include "SimpleAudioEngine.h"
+#include "ScoreLayer.h"
 
 USING_NS_CC;
 
@@ -31,6 +30,7 @@ private:
 	std::vector<Node*> starVector;
 
 	void startShining(float time);
+
 };
 
 

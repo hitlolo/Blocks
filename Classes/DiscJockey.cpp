@@ -19,8 +19,8 @@ DiscJockey* DiscJockey::getInstance()
 DiscJockey::DiscJockey()
 {
 	audioEngine = CocosDenshion::SimpleAudioEngine::getInstance();
-	isMusicOn = true;
-	isEffectOn = true;
+	music = true;
+	effect = true;
 }
 
 DiscJockey::~DiscJockey()
@@ -45,7 +45,7 @@ void DiscJockey::unLoad(std::string file)
 
 void DiscJockey::playBackgroundMusic()
 {
-	if (isMusicOn)
+	if (music)
 	{
 		audioEngine->playBackgroundMusic("Tetris.wav");
 	}
@@ -53,7 +53,7 @@ void DiscJockey::playBackgroundMusic()
 
 void DiscJockey::playClickEffect()
 {
-	if (isEffectOn)
+	if (effect)
 	{
 		audioEngine->playEffect("buttons.wav");
 	}
@@ -61,7 +61,7 @@ void DiscJockey::playClickEffect()
 
 void DiscJockey::playMoveEffect()
 {
-	if (isEffectOn)
+	if (effect)
 	{
 		audioEngine->playEffect("buttons.wav");
 	}
@@ -69,7 +69,7 @@ void DiscJockey::playMoveEffect()
 
 void DiscJockey::playLockOnEffect()
 {
-	if (isEffectOn)
+	if (effect)
 	{
 		audioEngine->playEffect("figurestop.wav");
 	}
@@ -77,8 +77,18 @@ void DiscJockey::playLockOnEffect()
 
 void DiscJockey::playClearLineEffect()
 {
-	if (isEffectOn)
+	if (effect)
 	{
 		audioEngine->playEffect("deletechips.wav");
 	}
+}
+
+bool DiscJockey::isMusicOn()
+{
+	return getMusicOn();
+}
+
+bool DiscJockey::isEffectOn()
+{
+	return getEffectOn();
 }

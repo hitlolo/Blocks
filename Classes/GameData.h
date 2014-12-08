@@ -18,7 +18,7 @@
 
 #define SPAWN_POINT           Point((BLOCK_WIDTH * BOARD_WIDTH)/2 - BLOCK_WIDTH * 2, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * (PIECE_SIZE-2)))
 #define PRE_POINT             Point((BLOCK_WIDTH * BOARD_WIDTH)/2 + BLOCK_WIDTH * 6, BLOCK_HEIGHT * BOARD_HEIGHT - (BLOCK_HEIGHT * PIECE_SIZE))
-#define BOARD_AT              Point(544, 64)  //32*16 32*2  x= 16 y=2  anchor 0,0
+#define BOARD_AT              Point(544, 32)  //32*16 32*2  x= 16 y=2  anchor 0,0
 
 
 typedef bool FieldOrTetro;
@@ -78,3 +78,4 @@ typedef struct
 
 }BlockDef;
 
+static int speedLevel = 0;  //静态全局 表示砖块下落速度等级

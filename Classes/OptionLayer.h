@@ -5,10 +5,12 @@
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 #include "DiscJockey.h"
-
+#include "GameData.h"
 USING_NS_CC;
 
+using namespace ui;
 
+extern int speedLevel;
 class OptionLayer :public Layer
 {
 
@@ -39,6 +41,12 @@ private:
 	void addOption();
 
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
+
+	void musicCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type);
+
+	void effectCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type);
+
+	void speedSliderCallback(Ref*pSender, ui::SliderEventType event_type);
 };
 
 #endif

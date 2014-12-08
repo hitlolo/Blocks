@@ -11,24 +11,23 @@ bool OptionLayer::init()
 	originPoint = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
 	addOption();
-	this->setDJ(DiscJockey::getInstance());
+
 	return true;
 }
 
 void OptionLayer::addOption()
 {
 
+	this->setDJ(DiscJockey::getInstance());
 
 	Node *optionNode = CSLoader::createNode("optionNode.csb");//传入Studio2.x的资源路径
 	optionNode->setPosition(Point(originPoint.x + visibleSize.width / 2, (originPoint.y + visibleSize.height / 2)));
 	this->addChild(optionNode);
+	optionNode->setName("optionNode");
 
-//	CCLOG("%f,%f,", optionNode->getPosition().x, optionNode->getPosition().y);
 	this->setAnchorPoint(Point(0.5, 0.5));
 	this->ignoreAnchorPointForPosition(false);
 	this->setPosition(Point(originPoint.x + visibleSize.width / 2, -(originPoint.y + visibleSize.height / 2)));
-//	this->setPosition(0, 0);
-//	CCLOG("%f,%f,", this->getPosition().x, this->getPosition().y); 
 
 
 	auto eventListener = EventListenerTouchOneByOne::create();
@@ -44,39 +43,29 @@ void OptionLayer::addOption()
 		cancelButton->addClickEventListener(CC_CALLBACK_1(OptionLayer::cancel, this));
 	}
 
-	
-
-
-
 	//set font name again due to the cocos studio 2.0 bugs (Text load ttf error)
-	std::string ttf_file = "kenpixel_future.ttf";
 	for (auto node : optionNode->getChildren())
 	{
 		auto textNode = dynamic_cast<ui::Text*>(node);
 		if (textNode)
 		{
-			textNode->setFontName(ttf_file);
 			textNode->enableOutline(Color4B(25, 26, 25, 155), 2);
 		}
 	}
-	//auto textSound = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSound"));
-	//textSound->setFontName(ttf_file);
-	//textSound->enableOutline(Color4B(25, 26, 25, 155), 2);
-	//auto textEffect = dynamic_cast<ui::Text*> (optionNode->getChildByName("textEffect"));
-	//textEffect->setFontName(ttf_file);
-	//textEffect->enableOutline(Color4B(25, 26, 25, 155), 2);
-	//auto textSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSpeed"));
-	//textSpeed->setFontName(ttf_file);
-	//textSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
-	//auto textCurSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textCurSpeed"));
-	//textCurSpeed->setFontName(ttf_file);
-	//textCurSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
-	//auto textMinSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMinSpeed"));
-	//textMinSpeed->setFontName(ttf_file);
-	//textMinSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
-	//auto textMaxSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMaxSpeed"));
-	//textMaxSpeed->setFontName(ttf_file);
-	//textMaxSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
+
+	auto musicBox = dynamic_cast<ui::CheckBox*>(optionNode->getChildByName("soundCheck"));
+	musicBox->addEventListenerCheckBox(this, checkboxselectedeventselector(OptionLayer::musicCheckBoxCallback));
+	auto effectBox = dynamic_cast<ui::CheckBox*>(optionNode->getChildByName("effectCheck"));
+	effectBox->addEventListenerCheckBox(this, checkboxselectedeventselector(OptionLayer::effectCheckBoxCallback));
+	musicBox->setSelectedState(getDJ()->isMusicOn());
+	effectBox->setSelectedState(getDJ()->isEffectOn());
+
+
+	auto textNode = dynamic_cast<ui::Text*>(optionNode->getChildByName("textCurSpeed"));
+	textNode->setText(String::createWithFormat("%d", speedLevel)->getCString());
+	auto speedSlider = dynamic_cast<ui::Slider*>(optionNode->getChildByName("speedSlider"));
+	speedSlider->addEventListenerSlider(this, sliderpercentchangedselector(OptionLayer::speedSliderCallback));
+	speedSlider->setPercent(speedLevel * 10);
 }
 
 bool OptionLayer::onTouchBegan(Touch* touch, Event* event)
@@ -128,3 +117,43 @@ void OptionLayer::cancel(Ref* sender)
 	
 }
 
+void OptionLayer::musicCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type)
+{
+	switch (event_type)
+	{
+	case ui::CheckBoxEventType::CHECKBOX_STATE_EVENT_SELECTED:
+		DiscJockey::getInstance()->setMusicOn(true);
+		break;
+	case ui::CheckBoxEventType::CHECKBOX_STATE_EVENT_UNSELECTED:
+		DiscJockey::getInstance()->setMusicOn(false);
+		break;
+	}
+}
+
+void OptionLayer::effectCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type)
+{
+
+	switch (event_type)
+	{
+	case ui::CheckBoxEventType::CHECKBOX_STATE_EVENT_SELECTED:
+		DiscJockey::getInstance()->setEffectOn(true);
+		break;
+	case ui::CheckBoxEventType::CHECKBOX_STATE_EVENT_UNSELECTED:
+		DiscJockey::getInstance()->setEffectOn(false);
+		break;
+	}
+}
+
+void OptionLayer::speedSliderCallback(Ref*pSender, ui::SliderEventType event_type)
+{
+	if (event_type == SliderEventType::SLIDER_PERCENTCHANGED)
+	{
+		Slider* pSlider = (Slider*)pSender;
+		int percent = pSlider->getPercent();
+		int tem = percent / 10;
+		auto textNode = dynamic_cast<ui::Text*>(this->getChildByName("optionNode")->getChildByName("textCurSpeed"));
+		textNode->setText(String::createWithFormat("%d", tem)->getCString());
+		speedLevel = tem;
+	}
+
+}

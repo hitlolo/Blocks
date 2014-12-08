@@ -96,22 +96,10 @@ void GameMenu::startGame(Ref* sender)
 void GameMenu::switchOption(Ref* sender)
 {
 	getDJ()->playClickEffect();
-	auto node = this->getChildByName("optionLayer");
 
-	if (!node)
-	{
-		auto optionLayer = OptionLayer::create();
-		this->addChild(optionLayer);
-		optionLayer->setName("optionLayer");
-		/*auto action = Spawn::create(MoveTo::create(0.3f, Point(originPoint.x + visibleSize.width / 2, (originPoint.y + visibleSize.height / 2))), FadeIn::create(0.3f), nullptr);
-		optionLayer->runAction(action);*/
-	}
-	else
-	{
-		removeChild(node);
+	auto optionLayer = OptionLayer::create();
+	this->addChild(optionLayer);
 		
-
-	}
 }
 
 

@@ -18,6 +18,7 @@ void TouchLayer::getAndSetButtons()
 	Node *rootNode = CSLoader::createNode("uiButton.csb");//传入Studio2.x的资源路径
 	rootNode->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
 	this->addChild(rootNode);
+	rootNode->setName("buttonRoot");
 
 
 	auto leftButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("leftButton"));
@@ -56,6 +57,18 @@ void TouchLayer::getAndSetButtons()
 	{
 		hardButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHardDrop, this));
 	}
+
+	auto pauseBox = dynamic_cast<ui::CheckBox*>(rootNode->getChildByName("pauseCheck"));	
+	if (pauseBox)
+	{
+		pauseBox->addEventListenerCheckBox(this, checkboxselectedeventselector(TouchLayer::pauseCheckBoxCallback));
+	}
+
+	//auto settingButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("settingButton"));
+	//if (settingButton)
+	//{
+	//	settingButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onSettingCallBack, this));
+	//}
 
 }
 
@@ -210,3 +223,51 @@ void TouchLayer::onHardDrop(Ref* sender)
 {
 	this->getMyTouchDelegate()->onHardDrop();
 }
+
+
+void TouchLayer::pauseCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type)
+{
+
+	auto buttonNode = this->getChildByName("buttonRoot");
+	switch (event_type)
+	{
+	case CheckBoxEventType::CHECKBOX_STATE_EVENT_SELECTED:
+		this->getMyTouchDelegate()->onPause();
+	
+		for (auto node : buttonNode->getChildren())
+		{
+			if (node->getName() == "pauseCheck")
+			{
+				continue;
+			}
+			else if (dynamic_cast<ui::Button*>(node))
+			{
+				dynamic_cast<ui::Button*>(node)->setEnabled(true);
+			}
+		}
+		break;
+	case CheckBoxEventType::CHECKBOX_STATE_EVENT_UNSELECTED:
+		this->getMyTouchDelegate()->onPause();	
+		for (auto node : buttonNode->getChildren())
+		{
+			if (node->getName() == "pauseCheck")
+			{
+				continue;
+			}
+			else if (dynamic_cast<ui::Button*>(node))
+			{
+				dynamic_cast<ui::Button*>(node)->setEnabled(false);
+			}
+		}
+		break;
+	}
+
+
+}
+
+//void TouchLayer::onSettingCallBack(Ref* sender)
+//{
+//	this->getMyTouchDelegate()->onPause();
+//	auto optionLayer = OptionLayer::create();
+//	this->addChild(optionLayer);
+//}

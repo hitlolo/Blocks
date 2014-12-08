@@ -10,20 +10,23 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="class">
-      <UniqueIdentifier>{40c45dc4-e6b0-479c-86a1-c7d66287b269}</UniqueIdentifier>
+    <Filter Include="classes">
+      <UniqueIdentifier>{78e51657-9e37-4589-9976-0e3ed308d7aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="class\Gaming">
-      <UniqueIdentifier>{e5820369-25b3-4f23-8af1-acd121a4806f}</UniqueIdentifier>
+    <Filter Include="classes\Elements">
+      <UniqueIdentifier>{bb245370-7d38-4497-9ff6-aadeee010a92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="class\Logo">
-      <UniqueIdentifier>{c1292b94-3985-472a-ada9-0f5e856898fd}</UniqueIdentifier>
+    <Filter Include="classes\Helper">
+      <UniqueIdentifier>{dc97eb48-889c-405b-88cd-64cf3b512ff4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="class\Data">
-      <UniqueIdentifier>{6f9117c4-179a-48c2-a4f3-bc307aa51dd6}</UniqueIdentifier>
+    <Filter Include="classes\Gaming">
+      <UniqueIdentifier>{02fb7bde-ee02-4538-b7fd-932fc49ee9cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="class\Elements">
-      <UniqueIdentifier>{f5b27370-e8c8-4eba-a856-8fac829fbc32}</UniqueIdentifier>
+    <Filter Include="classes\Logo">
+      <UniqueIdentifier>{04ddfd76-4b1b-4f1d-9cdc-83c80be2111a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="classes\Menu">
+      <UniqueIdentifier>{8da3399b-5ee0-4f6d-83ac-96b6c277d228}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,123 +34,129 @@
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>class</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>class</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\CommandCenter.cpp">
-      <Filter>class\Gaming</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameLogo.cpp">
-      <Filter>class\Logo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameMenu.cpp">
-      <Filter>class\Gaming</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameScene.cpp">
-      <Filter>class\Gaming</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameBoard.cpp">
-      <Filter>class\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BlockElement.cpp">
-      <Filter>class\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Tetromino.cpp">
-      <Filter>class\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TouchLayer.cpp">
-      <Filter>class\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SuperRotationSystem.cpp">
-      <Filter>class\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\RandomGenerator.cpp">
-      <Filter>class\Elements</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Block.cpp">
-      <Filter>class\Elements</Filter>
+      <Filter>classes\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BlockElement.cpp">
+      <Filter>classes\Elements</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BlockGhost.cpp">
-      <Filter>class\Elements</Filter>
+      <Filter>classes\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\OptionLayer.cpp">
-      <Filter>class\Gaming</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\CreditLayer.cpp">
-      <Filter>class\Gaming</Filter>
+    <ClCompile Include="..\Classes\CommandCenter.cpp">
+      <Filter>classes\Helper</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\DiscJockey.cpp">
-      <Filter>class\Gaming</Filter>
+      <Filter>classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RandomGenerator.cpp">
+      <Filter>classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SuperRotationSystem.cpp">
+      <Filter>classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TouchLayer.cpp">
+      <Filter>classes\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLogo.cpp">
+      <Filter>classes\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMenu.cpp">
+      <Filter>classes\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreditLayer.cpp">
+      <Filter>classes\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionLayer.cpp">
+      <Filter>classes\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>classes\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameBoard.cpp">
+      <Filter>classes\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Tetromino.cpp">
+      <Filter>classes\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ScoreLayer.cpp">
+      <Filter>classes\Gaming</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>class</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>class</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CommandCenter.h">
-      <Filter>class\Gaming</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameData.h">
-      <Filter>class\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLogo.h">
-      <Filter>class\Logo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameMenu.h">
-      <Filter>class\Gaming</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameScene.h">
-      <Filter>class\Gaming</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameBoard.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BlockElement.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Tetromino.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TouchLayer.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TouchDelegate.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SuperRotationSystem.h">
-      <Filter>class\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\RandomGenerator.h">
-      <Filter>class\Elements</Filter>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Block.h">
-      <Filter>class\Elements</Filter>
+      <Filter>classes\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BoardInterface.h">
-      <Filter>class\Elements</Filter>
+    <ClInclude Include="..\Classes\BlockElement.h">
+      <Filter>classes\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BlockGhost.h">
-      <Filter>class\Elements</Filter>
+      <Filter>classes\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\OptionLayer.h">
-      <Filter>class\Gaming</Filter>
+    <ClInclude Include="..\Classes\BoardInterface.h">
+      <Filter>classes\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CreditLayer.h">
-      <Filter>class\Gaming</Filter>
+    <ClInclude Include="..\Classes\CommandCenter.h">
+      <Filter>classes\Helper</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DiscJockey.h">
-      <Filter>class\Gaming</Filter>
+      <Filter>classes\Helper</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DiscJockeyDelegate.h">
-      <Filter>class\Gaming</Filter>
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RandomGenerator.h">
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SuperRotationSystem.h">
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchLayer.h">
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchDelegate.h">
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameData.h">
+      <Filter>classes\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLogo.h">
+      <Filter>classes\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMenu.h">
+      <Filter>classes\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditLayer.h">
+      <Filter>classes\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionLayer.h">
+      <Filter>classes\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>classes\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameBoard.h">
+      <Filter>classes\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tetromino.h">
+      <Filter>classes\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ScoreLayer.h">
+      <Filter>classes\Gaming</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

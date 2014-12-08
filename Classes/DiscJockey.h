@@ -18,9 +18,9 @@ public:
 
 	~DiscJockey();
 
-	CC_SYNTHESIZE(bool, isMusicOn, MusicOn);
+	CC_SYNTHESIZE(bool, music, MusicOn);
 
-	CC_SYNTHESIZE(bool, isEffectOn, EffectOn);
+	CC_SYNTHESIZE(bool, effect, EffectOn);
 
 	virtual void playBackgroundMusic() override;
 
@@ -31,6 +31,10 @@ public:
 	virtual void playLockOnEffect() override;
 
 	virtual void playClearLineEffect() override;
+
+	virtual bool isMusicOn() override;
+
+	virtual bool isEffectOn() override;
 
 	void preLoad();
 

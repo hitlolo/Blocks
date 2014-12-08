@@ -7,6 +7,7 @@ bool GameBoard::init()
 		return false;
 	}
 
+	this->setIsPaused(false);
 	this->setPosition(BOARD_AT);
 
 	auto panel = Sprite::create("blue_panel.png");
@@ -136,6 +137,8 @@ void GameBoard::gameStart()
 	}
 
 #endif	
+
+	getDJ()->playBackgroundMusic();
 }
 
 void GameBoard::gameOver()
@@ -196,6 +199,23 @@ void GameBoard::onHold()
 {
 	getDJ()->playMoveEffect();
 }
+
+void GameBoard::onPause()
+{
+	this->getDJ()->playClickEffect();
+	this->setIsPaused(!getIsPaused());
+	if (getIsPaused())
+	{
+		this->curTetromino->pauseSchedulerAndActions();
+	}
+	else
+	{
+		this->curTetromino->resumeSchedulerAndActions();
+	}
+
+	
+}
+	
 
 void GameBoard::onSoftDropStart()
 {
