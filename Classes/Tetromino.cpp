@@ -234,7 +234,11 @@ void Tetromino::onDown()
 }
 
 void Tetromino::onHardDrop()
-{}
+{
+	Point newPosition = dynamic_cast<GameBoard*> (getParent())->getghostTetromino()->getPosition();
+	this->setPosition(newPosition);
+
+}
 
 void Tetromino::onHold()
 {
@@ -409,8 +413,6 @@ void Tetromino::lockOn()
 			}
 		}
 	}
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("figurestop.wav");
 
 	dynamic_cast<GameBoard*> (getParent())->checkClear();
 	

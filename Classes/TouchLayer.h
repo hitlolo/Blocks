@@ -5,8 +5,6 @@
 #include "TouchDelegate.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
-#include "SimpleAudioEngine.h"
-
 
 USING_NS_CC;
 

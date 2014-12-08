@@ -75,6 +75,12 @@
     <ClCompile Include="..\Classes\OptionLayer.cpp">
       <Filter>class\Gaming</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CreditLayer.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DiscJockey.cpp">
+      <Filter>class\Gaming</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -132,6 +138,15 @@
       <Filter>class\Elements</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OptionLayer.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditLayer.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DiscJockey.h">
+      <Filter>class\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DiscJockeyDelegate.h">
       <Filter>class\Gaming</Filter>
     </ClInclude>
   </ItemGroup>

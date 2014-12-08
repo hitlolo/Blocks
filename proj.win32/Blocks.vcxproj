@@ -142,6 +142,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\BlockElement.cpp" />
     <ClCompile Include="..\Classes\BlockGhost.cpp" />
     <ClCompile Include="..\Classes\CommandCenter.cpp" />
+    <ClCompile Include="..\Classes\CreditLayer.cpp" />
+    <ClCompile Include="..\Classes\DiscJockey.cpp" />
     <ClCompile Include="..\Classes\GameMenu.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\GameLogo.cpp" />
@@ -160,6 +162,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\BlockElement.h" />
     <ClInclude Include="..\Classes\BlockGhost.h" />
     <ClInclude Include="..\Classes\CommandCenter.h" />
+    <ClInclude Include="..\Classes\CreditLayer.h" />
+    <ClInclude Include="..\Classes\DiscJockey.h" />
+    <ClInclude Include="..\Classes\DiscJockeyDelegate.h" />
     <ClInclude Include="..\Classes\GameBoard.h" />
     <ClInclude Include="..\Classes\GameData.h" />
     <ClInclude Include="..\Classes\GameMenu.h" />

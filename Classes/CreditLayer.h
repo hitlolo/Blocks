@@ -1,19 +1,16 @@
-#ifndef BLOCK_OPTIONS
-#define BLOCK_OPTIONS
+#ifndef BLOCK_CREDIT
+#define BLOCK_CREDIT
 
 #include "cocos2d.h"
-#include "ui/CocosGUI.h"
-#include "cocostudio/CocoStudio.h"
 #include "DiscJockey.h"
-
 USING_NS_CC;
 
 
-class OptionLayer :public Layer
+class CreditLayer :public Layer
 {
 
 public:
-	CREATE_FUNC(OptionLayer);
+	CREATE_FUNC(CreditLayer);
 
 	virtual bool init() override;
 
@@ -25,20 +22,18 @@ public:
 
 	virtual void onEnter();
 
-	virtual void onExit();
-
-	
-	
 private:
 	Point originPoint;
 
 	Size  visibleSize;
 
-	void cancel(Ref* sender);
+	void cancel();
 
-	void addOption();
+	void show();
 
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
+
+
 };
 
 #endif

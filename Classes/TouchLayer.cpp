@@ -51,6 +51,12 @@ void TouchLayer::getAndSetButtons()
 		downButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onDown, this));
 	}
 
+	auto hardButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("hardButton"));
+	if (hardButton)
+	{
+		hardButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHardDrop, this));
+	}
+
 }
 
 void TouchLayer::onLongLeftClick(Ref *pSender, ui::Widget::TouchEventType type)
@@ -177,36 +183,30 @@ void TouchLayer::onLongRotate(float time)
 
 void TouchLayer::onLeft(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onLeft();
 }
 
 void TouchLayer::onRight(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onRight();
 }
 
 void TouchLayer::onRotation(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onRotate();
 }
 
 void TouchLayer::onDown(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onDown();
 }
 
 void TouchLayer::onHold(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onHold();
 }
 
 void TouchLayer::onHardDrop(Ref* sender)
 {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("buttons.wav");
 	this->getMyTouchDelegate()->onHardDrop();
 }

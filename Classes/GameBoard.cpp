@@ -19,7 +19,7 @@ bool GameBoard::init()
 	this->addChild(grid);
 	grid->setOpacity(100);
 #endif
-
+	setDJ(DiscJockey::getInstance());
 	initPlayField();
 	gameStart();
 	return true;
@@ -160,18 +160,21 @@ void GameBoard::switchTetromino()
 
 void GameBoard::onLeft()
 {
+	getDJ()->playMoveEffect();
 	curTetromino->onLeft();
 	ghostTetromino->getHaunted();
 }
 
 void GameBoard::onRight()
 {
+	getDJ()->playMoveEffect();
 	curTetromino->onRight();
 	ghostTetromino->getHaunted();
 }
 
 void GameBoard::onRotate() 
 {
+	getDJ()->playMoveEffect();
 	curTetromino->onRotate();
 	ghostTetromino->getHaunted();
 //	ghostTetromino->setCurShape(curTetromino->getCurShape());
@@ -179,21 +182,24 @@ void GameBoard::onRotate()
 
 void GameBoard::onDown()
 {
+	getDJ()->playMoveEffect();
 	curTetromino->onDown();
 }
 
 void GameBoard::onHardDrop() 
 {
-
+	getDJ()->playMoveEffect();
+	curTetromino->onHardDrop();
 }
 
 void GameBoard::onHold()
 {
-
+	getDJ()->playMoveEffect();
 }
 
 void GameBoard::onSoftDropStart()
 {
+	getDJ()->playMoveEffect();
 	bool isSoftDroping = curTetromino->isFalling();
 	if (isSoftDroping)
 	{
@@ -208,6 +214,7 @@ void GameBoard::onSoftDropStart()
 
 void GameBoard::onSoftDropStop()
 {
+	getDJ()->playMoveEffect();
 	bool isSoftDroping = curTetromino->isFalling();
 	if (!isSoftDroping)
 	{
@@ -222,6 +229,8 @@ void GameBoard::onSoftDropStop()
 
 void GameBoard::checkClear()
 {
+	getDJ()->playLockOnEffect();
+
 	for (int i = 0; i < 4; i++)
 		comboVector[i] = -1;
 	int index = 0;
@@ -315,5 +324,6 @@ void GameBoard::fallLine(int line)
 				
 	this->setCurTop(getCurTop() - 1);
 	this->ghostTetromino->getHaunted();
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("deletechips.wav");
+	
+	getDJ()->playClearLineEffect();
 }

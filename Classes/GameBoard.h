@@ -6,7 +6,7 @@
 #include "Tetromino.h"
 #include "RandomGenerator.h"
 #include "TouchDelegate.h"
-#include "SimpleAudioEngine.h"
+#include "DiscJockey.h"
 #include "BoardInterface.h"
 
 
@@ -59,6 +59,8 @@ private:
 	virtual void setCurTop(int) override;
 
 	virtual int  getCurTop() override;
+
+	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
 
 	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
 

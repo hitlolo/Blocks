@@ -7,6 +7,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "CommandCenter.h"
 #include "OptionLayer.h"
+#include "CreditLayer.h"
+#include "DiscJockey.h"
 USING_NS_CC;
 
 class GameMenu :public Layer
@@ -18,6 +20,8 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(GameMenu);
+
+	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
 
 private:
 	~GameMenu();
@@ -31,10 +35,6 @@ private:
 	void startGame(Ref* sender);
 
 	void switchOption(Ref* sender);
-
-	Sprite* creditView;
-
-	void addCreditsView();
 
 	void showCreditsView(Ref* sender);
 

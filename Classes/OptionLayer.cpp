@@ -11,6 +11,7 @@ bool OptionLayer::init()
 	originPoint = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
 	addOption();
+	this->setDJ(DiscJockey::getInstance());
 	return true;
 }
 
@@ -49,18 +50,33 @@ void OptionLayer::addOption()
 
 	//set font name again due to the cocos studio 2.0 bugs (Text load ttf error)
 	std::string ttf_file = "kenpixel_future.ttf";
-	auto textSound = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSound"));
-	textSound->setFontName(ttf_file);
-	auto textEffect = dynamic_cast<ui::Text*> (optionNode->getChildByName("textEffect"));
-	textEffect->setFontName(ttf_file);
-	auto textSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSpeed"));
-	textSpeed->setFontName(ttf_file);
-	auto textCurSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textCurSpeed"));
-	textCurSpeed->setFontName(ttf_file);
-	auto textMinSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMinSpeed"));
-	textMinSpeed->setFontName(ttf_file);
-	auto textMaxSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMaxSpeed"));
-	textMaxSpeed->setFontName(ttf_file);
+	for (auto node : optionNode->getChildren())
+	{
+		auto textNode = dynamic_cast<ui::Text*>(node);
+		if (textNode)
+		{
+			textNode->setFontName(ttf_file);
+			textNode->enableOutline(Color4B(25, 26, 25, 155), 2);
+		}
+	}
+	//auto textSound = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSound"));
+	//textSound->setFontName(ttf_file);
+	//textSound->enableOutline(Color4B(25, 26, 25, 155), 2);
+	//auto textEffect = dynamic_cast<ui::Text*> (optionNode->getChildByName("textEffect"));
+	//textEffect->setFontName(ttf_file);
+	//textEffect->enableOutline(Color4B(25, 26, 25, 155), 2);
+	//auto textSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textSpeed"));
+	//textSpeed->setFontName(ttf_file);
+	//textSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
+	//auto textCurSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textCurSpeed"));
+	//textCurSpeed->setFontName(ttf_file);
+	//textCurSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
+	//auto textMinSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMinSpeed"));
+	//textMinSpeed->setFontName(ttf_file);
+	//textMinSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
+	//auto textMaxSpeed = dynamic_cast<ui::Text*> (optionNode->getChildByName("textMaxSpeed"));
+	//textMaxSpeed->setFontName(ttf_file);
+	//textMaxSpeed->enableOutline(Color4B(25, 26, 25, 155), 2);
 }
 
 bool OptionLayer::onTouchBegan(Touch* touch, Event* event)
@@ -97,12 +113,11 @@ void OptionLayer::onExit()
 
 	Layer::onExit();
 	
-
 }
 
 void OptionLayer::cancel(Ref* sender)
 {
-
+	getDJ()->playClickEffect();
 	auto action = Spawn::create(MoveTo::create(0.3f, Point(originPoint.x + visibleSize.width / 2, -(originPoint.y + visibleSize.height / 2))), FadeOut::create(0.3f), ScaleBy::create(0.3f, 0.3f), nullptr);
 	auto set = CallFunc::create(CC_CALLBACK_0(OptionLayer::setVisible, this, false));
 	auto remove = CallFunc::create(CC_CALLBACK_0(OptionLayer::removeFromParent, this));

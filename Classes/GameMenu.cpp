@@ -6,6 +6,8 @@ Scene* GameMenu::createScene()
 
 	auto layer = GameMenu::create();
 
+	layer->setDJ(DiscJockey::getInstance());
+
 	scene->addChild(layer);
 
 	return scene;
@@ -18,10 +20,10 @@ bool GameMenu::init()
 	{
 		return false;
 	}
-	creditView = nullptr;
 
 	addMenu();
 
+	
 	return true;
 }
 
@@ -87,11 +89,13 @@ GameMenu::~GameMenu()
 
 void GameMenu::startGame(Ref* sender)
 {
+	getDJ()->playClickEffect();
 	CommandCenter::getInstance()->goState(GAME_STATE::GAME);
 }
 
 void GameMenu::switchOption(Ref* sender)
 {
+	getDJ()->playClickEffect();
 	auto node = this->getChildByName("optionLayer");
 
 	if (!node)
@@ -101,7 +105,6 @@ void GameMenu::switchOption(Ref* sender)
 		optionLayer->setName("optionLayer");
 		/*auto action = Spawn::create(MoveTo::create(0.3f, Point(originPoint.x + visibleSize.width / 2, (originPoint.y + visibleSize.height / 2))), FadeIn::create(0.3f), nullptr);
 		optionLayer->runAction(action);*/
-
 	}
 	else
 	{
@@ -112,47 +115,22 @@ void GameMenu::switchOption(Ref* sender)
 }
 
 
-void GameMenu::addCreditsView()
+void GameMenu::showCreditsView(Ref* sender)
 {
+	getDJ()->playClickEffect();
+	auto node = this->getChildByName("creditLayer");
 
-	std::string file = "UIbg.png";
-	creditView = Sprite::create(file);
-	creditView->setPosition(originPoint.x + visibleSize.width - creditView->getContentSize().width  , originPoint.y + creditView->getContentSize().height  );
-	/*creditView->setOpacity(195);*/
-	this->addChild(creditView);
-
-	//:createWithTTF(
-	//const std::string& text, 
-	//const std::string& fontFile, 
-	//float fontSize, 
-	//const Size& dimensions /* = Size::ZERO */,
-	//TextHAlignment hAlignment /* = TextHAlignment::LEFT */, 
-	//TextVAlignment vAlignment /* = TextVAlignment::TOP */)
-
-	//label
-	std::string thanks_str = "\nC R E D I T S\n\n---------\ncoding:\nhitlolo\n\nSpecial thanks:\nwww.kenney.nl\n---------";
-	std::string font_name = "kenpixel_future.ttf";
-	Label* thanks = Label::createWithTTF(thanks_str, font_name, 18);
-	thanks->setAlignment(TextHAlignment::CENTER, TextVAlignment::CENTER);
-	thanks->setPosition(originPoint.x + creditView->getContentSize().width / 2, originPoint.y + creditView->getContentSize().height - 100);
-	creditView->addChild(thanks);
-
-}
-
-void  GameMenu::showCreditsView(Ref* sender)
-{
-
-	if (!creditView)
+	if (!node)
 	{
-		this->addCreditsView();
+		auto creditLayer = CreditLayer::create();
+		this->addChild(creditLayer);
+		creditLayer->setName("creditLayer");
+
 	}
 	else
 	{
-		this->creditView->setVisible(!creditView->isVisible());
-	}
+		removeChild(node);
 
-#if 0
-	CCLOG("CREDITS VIEW!");
-#endif
+	}
 
 }

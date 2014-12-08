@@ -8,7 +8,6 @@
 #include "GameBoard.h"
 #include "SuperRotationSystem.h"
 #include "RandomGenerator.h"
-#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 

@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "CommandCenter.h"
-#include "SimpleAudioEngine.h"
+#include "DiscJockey.h"
 
 USING_NS_CC;
 
