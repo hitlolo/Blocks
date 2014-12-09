@@ -32,6 +32,8 @@ public:
 
 	virtual void playClearLineEffect() override;
 
+	virtual void playAddScoreEffect() override;
+
 	virtual bool isMusicOn() override;
 
 	virtual bool isEffectOn() override;

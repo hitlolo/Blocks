@@ -59,12 +59,16 @@ void GameScene::addLayers()
 	auto gameBoard = GameBoard::create();
 	this->addChild(gameBoard);
 
-	auto scoreLayer = ScoreLayer::create();
-	this->addChild(scoreLayer);
+	
 
 	auto touchLayer = TouchLayer::create();
 	this->addChild(touchLayer);
 	touchLayer->setMyTouchDelegate(gameBoard);
+
+	auto scoreLayer = ScoreLayer::create();
+	this->addChild(scoreLayer);
+
+	gameBoard->setHUD(scoreLayer);
 
 }
 

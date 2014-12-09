@@ -8,6 +8,7 @@
 #include "TouchDelegate.h"
 #include "DiscJockey.h"
 #include "BoardInterface.h"
+#include "HUDDelegate.h"
 
 
 USING_NS_CC;
@@ -54,15 +55,17 @@ public:
 
 	virtual void checkClear() override;
 
-private:
-
-	int curTop;
-
 	virtual void setCurTop(int) override;
 
 	virtual int  getCurTop() override;
 
+private:
+
+	int curTop;
+
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
+
+	CC_SYNTHESIZE(HUDDelegate*, HUDDelegator, HUD);
 
 	CC_SYNTHESIZE(class Tetromino*, curTetromino, CurTetromino);
 

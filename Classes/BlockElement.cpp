@@ -90,21 +90,25 @@ std::string BlockElement::getBlockFileName()
 void BlockElement::lockOn()
 {
 	Point point = this->toBoardCoordinate();
+
+
 	if (point.x >= FIELD_LEFT_BOARD && point.x <= FIELD_RIGHT_BOARD && point.y >= FIELD_BOTTOM && point.y <= FIELD_TOP)
 	{
 		this->getGameBoard()->switchShowing(point);
-		if (point.y > this->getGameBoard()->getCurTop() && point.y < FIELD_TOP)
+		if (point.y > this->getGameBoard()->getCurTop() && point.y <= FIELD_TOP)
 		{
 			this->getGameBoard()->setCurTop(point.y);
 			this->getGameBoard()->checkClear();
 		}
-
-		if (point.y == FIELD_TOP)
-		{
-			this->getGameBoard()->gameOver();
-		}
-		
 	}
+
+	if (point.y > FIELD_TOP)
+	{
+		this->getGameBoard()->setCurTop(point.y);
+
+		return;
+	}
+
 	
 }
 

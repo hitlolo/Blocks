@@ -34,6 +34,7 @@ void DiscJockey::preLoad()
 	audioEngine->preloadEffect("buttons.wav");
 	audioEngine->preloadEffect("deletechips.wav");
 	audioEngine->preloadEffect("figurestop.wav");
+	audioEngine->preloadEffect("PickedCoinEcho.wav");
 }
 
 void DiscJockey::unLoad(std::string file)
@@ -80,6 +81,14 @@ void DiscJockey::playClearLineEffect()
 	if (effect)
 	{
 		audioEngine->playEffect("deletechips.wav");
+	}
+}
+
+void DiscJockey::playAddScoreEffect()
+{
+	if (effect)
+	{
+		audioEngine->playEffect("PickedCoinEcho.wav");
 	}
 }
 

@@ -35,6 +35,8 @@ public:
 
 	bool isMoveAble();
 
+	void checkAndStopLockon();
+
 private:
 	friend class SuperRotationSystem;
 
@@ -87,6 +89,8 @@ private:
 
 	void lockOn();
 
+	void instantLockon();
+
 	void startFalling();
 
 	void stopFalling();
@@ -100,6 +104,8 @@ private:
 	void ghostRefreshType(TETROMINO_TYPE type);
 
 	void ghostRefreshShape(int shape);
+
+	void overGame();
 };
 
 

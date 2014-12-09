@@ -153,22 +153,36 @@ void Tetromino::doCleanBeforeReset()
 
 
 }
+void Tetromino::checkAndStopLockon()
+{
+	if (downAble())
+	{
+		auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+		if (lock_on)
+		{
+			this->stopAction(lock_on);
+		}
+	}
+}
 
+void Tetromino::instantLockon()
+{
+	auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
+	if (lock_on)
+	{
+		this->stopAction(lock_on);
+
+	}
+	this->lockOn();
+}
 //mover
 void Tetromino::onLeft()
 {
 	if (leftAble())
 	{
 		this->setPositionX(this->getPositionX() - BLOCK_WIDTH);
+		this->checkAndStopLockon();
 		
-		if (downAble())
-		{
-			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
-			if (lock_on)
-			{
-				this->stopAction(lock_on);
-			}
-		}
 	}
 	
 }
@@ -180,14 +194,7 @@ void Tetromino::onRight()
 	{
 		
 		this->setPositionX(this->getPositionX() + BLOCK_WIDTH);
-		if (downAble())
-		{
-			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
-			if (lock_on)
-			{
-				this->stopAction(lock_on);
-			}
-		}
+		this->checkAndStopLockon();
 	}
 	
 }
@@ -201,14 +208,7 @@ void Tetromino::onRotate()
 	bool is_rotated = SuperRotationSystem::getInstance()->doRotation(this);
 	if (is_rotated)
 	{
-		if (downAble())
-		{
-			auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
-			if (lock_on)
-			{
-				this->stopAction(lock_on);
-			}
-		}
+		this->checkAndStopLockon();
 	}
 	
 }
@@ -221,14 +221,7 @@ void Tetromino::onDown()
 	}
 	else
 	{
-		auto lock_on = this->getActionByTag(LOCK_DELAY_TAG);
-		if (lock_on)
-		{
-			this->stopAction(lock_on);
-
-		}
-		this->lockOn();
-	
+		instantLockon();
 	}
 
 }
@@ -395,6 +388,7 @@ void Tetromino::fallingDown(float time)
 		runLockDelay();
 	}
 	
+
 }
 
 void Tetromino::lockOn()
@@ -412,6 +406,13 @@ void Tetromino::lockOn()
 				dynamic_cast<BlockElement*>(blocksVector[y][x])->lockOn();
 			}
 		}
+	}
+	
+	
+	if (dynamic_cast<GameBoard*> (getParent())->getCurTop() > FIELD_TOP)
+	{
+		dynamic_cast<GameBoard*> (getParent())->gameOver();
+		return;
 	}
 
 	dynamic_cast<GameBoard*> (getParent())->checkClear();
@@ -562,4 +563,10 @@ void Tetromino::ghostRefreshShape(int shape)
 	}
 
 	this->setCurShape(shape);
+}
+
+void  Tetromino::overGame()
+{
+	this->stopFalling();
+	//this->removeAllChildrenWithCleanup(true);
 }

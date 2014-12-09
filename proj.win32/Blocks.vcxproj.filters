@@ -158,6 +158,9 @@
     <ClInclude Include="..\Classes\ScoreLayer.h">
       <Filter>classes\Gaming</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\HUDDelegate.h">
+      <Filter>classes\Gaming</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

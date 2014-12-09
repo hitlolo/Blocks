@@ -143,7 +143,8 @@ void GameBoard::gameStart()
 
 void GameBoard::gameOver()
 {
-	this->curTetromino->stopFalling();
+	curTetromino->overGame();
+	CCLOG("GAMEOVER!");
 }
 
 void GameBoard::switchTetromino()
@@ -322,7 +323,8 @@ void GameBoard::clearLine(std::vector<int> &lineVector)
 	auto action = Sequence::create(vector_action);
 	this->runAction(action);
 	//fall
-
+	CCLOG("%d,comBO", combo);
+	getHUD()->addLine(combo);
 	//fallLine(lineArray);
 	
 
@@ -344,6 +346,6 @@ void GameBoard::fallLine(int line)
 				
 	this->setCurTop(getCurTop() - 1);
 	this->ghostTetromino->getHaunted();
-	
+	this->curTetromino->checkAndStopLockon();
 	getDJ()->playClearLineEffect();
 }

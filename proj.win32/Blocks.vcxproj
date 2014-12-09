@@ -173,6 +173,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\GameMenu.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\HUDDelegate.h" />
     <ClInclude Include="..\Classes\OptionLayer.h" />
     <ClInclude Include="..\Classes\RandomGenerator.h" />
     <ClInclude Include="..\Classes\ScoreLayer.h" />

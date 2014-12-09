@@ -14,6 +14,8 @@ public:
 
 	virtual void playClearLineEffect() = 0;
 
+	virtual void playAddScoreEffect() = 0;
+
 	virtual bool isMusicOn() = 0;
 
 	virtual bool isEffectOn() = 0;
