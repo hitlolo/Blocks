@@ -19,7 +19,7 @@ public:
 
 	virtual bool init() override;
 
-	static Tetromino* create(TETROMINO_TYPE,bool);
+	static Tetromino* create(TETROMINO_TYPE,bool is_ghost);
 
 	Tetromino(TETROMINO_TYPE,bool);
 
@@ -33,7 +33,9 @@ public:
 
 	void setInitStateToGhost();
 
-	void switchState();
+	void setInitStateToHold();
+
+	void switchState(TETROMINO_STATE);
 
 	bool isMoveAble();
 
@@ -76,7 +78,6 @@ private:
 
 	void onHold();
 
-
 	bool leftAble();
 
 	bool rightAble();
@@ -103,9 +104,9 @@ private:
 
 	void getHaunted();
 
-	void ghostRefreshType(TETROMINO_TYPE type);
+	void refreshType(TETROMINO_TYPE type);
 
-	void ghostRefreshShape(int shape);
+	void refreshShape(int shape);
 
 	void overGame();
 };

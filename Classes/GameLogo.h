@@ -12,12 +12,11 @@ class GameLogo :public Layer
 public:
 	static cocos2d::Scene* createScene();
 
-	virtual bool init();
-
 	CREATE_FUNC(GameLogo);
 
+	virtual bool init();
+
 private:
-	~GameLogo();
 
 	void addLogo();
 

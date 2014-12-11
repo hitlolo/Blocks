@@ -230,7 +230,7 @@ void Tetromino::onDown()
 
 void Tetromino::onHardDrop()
 {
-	Point newPosition = dynamic_cast<GameBoard*> (getParent())->getghostTetromino()->getPosition();
+	Point newPosition = dynamic_cast<GameBoard*> (getParent())->getGhostTetromino()->getPosition();
 	this->setPosition(newPosition);
 
 }
@@ -419,7 +419,7 @@ void Tetromino::lockOn()
 
 	dynamic_cast<GameBoard*> (getParent())->checkClear();
 	
-	dynamic_cast<GameBoard*> (getParent())->switchTetromino();
+	dynamic_cast<GameBoard*> (getParent())->switchCurAndNextTetromino();
 }
 
 void Tetromino::runLockDelay()
@@ -463,15 +463,33 @@ void  Tetromino::setInitStateToGhost()
 	this->setPosition(0,0);
 }
 
-void Tetromino::switchState()
+void Tetromino::setInitStateToHold()
 {
-	if (curState == TETROMINO_STATE::SHOW)
+	this->setCurState(TETROMINO_STATE::HOLD);
+	this->setCurMobility(false);
+	this->refreshShape(0);
+	this->setPosition(HOLD_POINT);
+}
+
+void Tetromino::switchState(TETROMINO_STATE next_state)
+{
+	if (curState == TETROMINO_STATE::SHOW && next_state == TETROMINO_STATE::PRE)
 	{
 		this->setInitStateToPre();
 		this->stopFalling();
 		this->reShowing();
 	}
-	else if (curState == TETROMINO_STATE::PRE)
+	else if (curState == TETROMINO_STATE::PRE && next_state == TETROMINO_STATE::SHOW)
+	{
+		setInitStateToTetro();
+	}
+	else if (curState == TETROMINO_STATE::SHOW && next_state == TETROMINO_STATE::HOLD)
+	{
+		setInitStateToHold();
+		this->stopFalling();
+		//this->reShowing();
+	}
+	else if (curState == TETROMINO_STATE::HOLD && next_state == TETROMINO_STATE::SHOW)
 	{
 		setInitStateToTetro();
 	}
@@ -518,13 +536,13 @@ void Tetromino::getHaunted()
 	int shape = dynamic_cast<GameBoard*> (getParent())->getCurTetromino()->curShape;
 	if (this->getType() != type)
 	{
-		this->ghostRefreshType(type);
-		this->ghostRefreshShape(shape);
+		this->refreshType(type);
+		this->refreshShape(shape);
 	}
 	
 	if (shape!=this->curShape)
 	{
-		this->ghostRefreshShape(shape);
+		this->refreshShape(shape);
 	}
 		
 	Point initPosition = dynamic_cast<GameBoard*> (getParent())->getCurTetromino()->getPosition();
@@ -536,12 +554,12 @@ void Tetromino::getHaunted()
 	
 }
 
-void Tetromino::ghostRefreshType(TETROMINO_TYPE type)
+void Tetromino::refreshType(TETROMINO_TYPE type)
 {
 	this->setShapesByType(type);
 }
 
-void Tetromino::ghostRefreshShape(int shape)
+void Tetromino::refreshShape(int shape)
 {
 	char16_t mask = 0x8000;
 

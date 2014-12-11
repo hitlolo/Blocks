@@ -26,7 +26,7 @@ bool GameScene::init()
 void GameScene::addLayers()
 {
 	
-	auto background = Sprite::create("bg.png");
+	auto background = Sprite::createWithSpriteFrameName("bg.png");
 	float scale_x = visibleSize.width / background->getContentSize().width;
 	float scale_y = visibleSize.height / background->getContentSize().height;
 	background->setScaleX(scale_x);
@@ -44,7 +44,6 @@ void GameScene::addLayers()
 	
 	}
 
-	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::startShining), 5.5f);
 #if 0
 	auto gameBoard = LayerColor::create(Color4B(125, 126, 125, 255), BLOCK_WIDTH * BOARD_WIDTH, BLOCK_WIDTH * BOARD_HEIGHT);
 //	gameBoard->setContentSize(Size(BLOCK_WIDTH * BOARD_WIDTH, BLOCK_WIDTH * BOARD_HEIGHT));
@@ -68,22 +67,5 @@ void GameScene::addLayers()
 	auto touchLayer = TouchLayer::create();
 	this->addChild(touchLayer);
 	touchLayer->setMyTouchDelegate(gameBoard);
-
-	
-
-}
-
-GameScene::~GameScene()
-{
-	this->removeAllChildrenWithCleanup(true);
-}
-
-void GameScene::startShining(float time)
-{
-
-	for (auto star : starVector)
-	{
-		star->setPosition(RandomGenerator::getInstance()->getRandomPosition());
-	}
 
 }

@@ -38,7 +38,7 @@ private:
 
 	int comboNum;
 
-	CC_SYNTHESIZE(Text*,curLine,CurLine);
+	CC_SYNTHESIZE(Text*, curLine, CurLine);
 
 	CC_SYNTHESIZE(Text*, curScore, CurScore);
 

@@ -58,17 +58,19 @@ void TouchLayer::getAndSetButtons()
 		hardButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHardDrop, this));
 	}
 
+	auto holdButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("holdButton"));
+	if (holdButton)
+	{
+		holdButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHold, this));
+	}
+
 	auto pauseBox = dynamic_cast<ui::CheckBox*>(rootNode->getChildByName("pauseCheck"));	
 	if (pauseBox)
 	{
 		pauseBox->addEventListenerCheckBox(this, checkboxselectedeventselector(TouchLayer::pauseCheckBoxCallback));
 	}
 
-	//auto settingButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("settingButton"));
-	//if (settingButton)
-	//{
-	//	settingButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onSettingCallBack, this));
-	//}
+	
 
 }
 

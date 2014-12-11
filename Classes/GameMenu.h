@@ -17,14 +17,13 @@ class GameMenu :public Layer
 public:
 	static cocos2d::Scene* createScene();
 
-	virtual bool init();
-
 	CREATE_FUNC(GameMenu);
+
+	virtual bool init();
 
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
 
 private:
-	~GameMenu();
 
 	Point originPoint;
 
@@ -34,7 +33,7 @@ private:
 
 	void startGame(Ref* sender);
 
-	void switchOption(Ref* sender);
+	void showOption(Ref* sender);
 
 	void showCreditsView(Ref* sender);
 

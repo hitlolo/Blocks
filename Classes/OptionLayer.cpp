@@ -87,22 +87,12 @@ void OptionLayer::onEnter()
 {
 
 	Layer::onEnter();
-	//this->setScale(1.0f);
 	auto action = Spawn::create(MoveTo::create(0.3f, Point(originPoint.x + visibleSize.width / 2, (originPoint.y + visibleSize.height / 2))), FadeIn::create(0.3f), nullptr);
-
 	this->runAction(action);
 //	this->setVisible(true);
 	
-	CCLOG("%f,%f,", this->getPosition().x, this->getPosition().y);
-	
 }
-//
-void OptionLayer::onExit()
-{
 
-	Layer::onExit();
-	
-}
 
 void OptionLayer::cancel(Ref* sender)
 {
@@ -112,9 +102,6 @@ void OptionLayer::cancel(Ref* sender)
 	auto remove = CallFunc::create(CC_CALLBACK_0(OptionLayer::removeFromParent, this));
 	auto action_ = Sequence::create(action, set, remove, nullptr);
 	this->runAction(action_);
-
-	//this->removeFromParent();
-	
 }
 
 void OptionLayer::musicCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type)

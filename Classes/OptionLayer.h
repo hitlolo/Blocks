@@ -28,18 +28,14 @@ public:
 
 	virtual void onEnter();
 
-	virtual void onExit();
-
-	
-	
 private:
 	Point originPoint;
 
 	Size  visibleSize;
 
-	void cancel(Ref* sender);
-
 	void addOption();
+
+	void cancel(Ref* sender);
 
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
 

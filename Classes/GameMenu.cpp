@@ -32,7 +32,7 @@ void GameMenu::addMenu()
 	originPoint = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto background = Sprite::create("bg.png");
+	auto background = Sprite::createWithSpriteFrameName("bg.png");
 	float scale_x = visibleSize.width / background->getContentSize().width;
 	float scale_y = visibleSize.height / background->getContentSize().height;
 	background->setScaleX(scale_x);
@@ -44,7 +44,7 @@ void GameMenu::addMenu()
 	for (int i = 0; i < 20; i++)
 	{
 		auto starNode = Sprite::create("particle01.png");
-		this->addChild(starNode);//假设this是即将显示的scene 
+		this->addChild(starNode); 
 		starNode->setPosition(RandomGenerator::getInstance()->getRandomPosition());
 
 	}
@@ -71,7 +71,7 @@ void GameMenu::addMenu()
 	auto optionButton = dynamic_cast<ui::Button*> (menuNode->getChildByName("buttonOption"));
 	if (optionButton)
 	{
-		optionButton->addClickEventListener(CC_CALLBACK_1(GameMenu::switchOption, this));
+		optionButton->addClickEventListener(CC_CALLBACK_1(GameMenu::showOption, this));
 	}
 
 	auto creditButton = dynamic_cast<ui::Button*> (menuNode->getChildByName("buttonCredit"));
@@ -81,22 +81,15 @@ void GameMenu::addMenu()
 	}
 }
 
-GameMenu::~GameMenu()
-{
-	this->removeAllChildrenWithCleanup(true);
-}
-
-
 void GameMenu::startGame(Ref* sender)
 {
 	getDJ()->playClickEffect();
 	CommandCenter::getInstance()->goState(GAME_STATE::GAME);
 }
 
-void GameMenu::switchOption(Ref* sender)
+void GameMenu::showOption(Ref* sender)
 {
 	getDJ()->playClickEffect();
-
 	auto optionLayer = OptionLayer::create();
 	this->addChild(optionLayer);
 		

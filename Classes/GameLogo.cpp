@@ -37,18 +37,14 @@ void GameLogo::addLogo()
 
 void  GameLogo::loadRes()
 {
-
-	//Sprite* Sprite::create(const std::string& filename)
-	//void TextureCache::addImageAsync(const std::string &path, const std::function<void(Texture2D*)>& callback)
-	Director::getInstance()->getTextureCache()->addImageAsync("blockSheet.png", CC_CALLBACK_1(GameLogo::loadImageOver, this));
-
+	Director::getInstance()->getTextureCache()->addImageAsync("spriteSheet.png", CC_CALLBACK_1(GameLogo::loadImageOver, this));
 }
 
 
 void GameLogo::loadImageOver(Texture2D* texture)
 {
 
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("blocks.plist", texture);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("spriteSheet.plist", texture);
 
 	this->loadMusic();
 
@@ -79,10 +75,5 @@ void GameLogo::onExit()
 
 	Layer::onExit();
 	this->stopAllActions();
-
 }
 
-GameLogo::~GameLogo()
-{
-	this->removeAllChildrenWithCleanup(true);
-}

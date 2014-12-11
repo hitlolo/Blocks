@@ -20,7 +20,7 @@ public:
 
 	virtual int  getCurTop() = 0;
 
-	virtual void switchShowing(Point) = 0;
+	virtual void switchShowingForCell(Point) = 0;
 
 	virtual void checkClear() = 0;
 };

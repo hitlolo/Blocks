@@ -29,9 +29,11 @@ public:
 
 	virtual TETROMINO_TYPE getTetroType() override;
 
-	void switchShowing(Point);
+	void switchShowingForCell(Point);
 
-	void switchTetromino();
+	void switchCurAndNextTetromino();
+
+	void switchCurAndHoldTetromino();
 
 	virtual void onLeft() override;
 
@@ -71,7 +73,9 @@ private:
 
 	CC_SYNTHESIZE(class Tetromino*, nextTetromino, NextTetromino);
 
-	CC_SYNTHESIZE(class Tetromino*, ghostTetromino, ghostTetromino);
+	CC_SYNTHESIZE(class Tetromino*, ghostTetromino, GhostTetromino);
+
+	CC_SYNTHESIZE(class Tetromino*, holdTetromino, HoldTetromino);
 
 	CC_SYNTHESIZE(TETROMINO_TYPE, curTetroType, CurTetroType);
 
@@ -84,6 +88,14 @@ private:
 	void initPlayField();
 
 	void gameStart(); 
+
+	void createCurTetro();
+
+	void createNextTetro();
+
+	void createGhostPiece();
+
+	void createHoldPiece();
 
 	void clearLine(std::vector<int>&);
 

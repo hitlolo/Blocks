@@ -94,7 +94,7 @@ void BlockElement::lockOn()
 
 	if (point.x >= FIELD_LEFT_BOARD && point.x <= FIELD_RIGHT_BOARD && point.y >= FIELD_BOTTOM && point.y <= FIELD_TOP)
 	{
-		this->getGameBoard()->switchShowing(point);
+		this->getGameBoard()->switchShowingForCell(point);
 		if (point.y > this->getGameBoard()->getCurTop() && point.y <= FIELD_TOP)
 		{
 			this->getGameBoard()->setCurTop(point.y);

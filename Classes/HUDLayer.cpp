@@ -37,7 +37,7 @@ void HUDLayer::addLayer()
 	rootNode->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
 	this->addChild(rootNode);
 
-	curLine = dynamic_cast<Text*>(rootNode->getChildByName("textCurLine"));
+	curLine  = dynamic_cast<Text*>(rootNode->getChildByName("textCurLine"));
 	curScore = dynamic_cast<Text*>(rootNode->getChildByName("textCurScore"));
 	curSpeed = dynamic_cast<Text*>(rootNode->getChildByName("textCurSpeed"));
 	curCombo = dynamic_cast<Text*>(rootNode->getChildByName("textCurCombo"));
@@ -56,18 +56,11 @@ void HUDLayer::addLine(int add_line)
 		this->addSpeed();
 	}
 	
-	
-	//if (lineNum % 20 == 0)
-	//{
-	//	
-	//	CCLOG("SPEED UP");
-	//}
 	curLine->setText(String::createWithFormat("%d", lineNum)->getCString());
 	
 	Vector<FiniteTimeAction*> vector_action;
 	for (int i = 0; i < combo; i++)
 	{
-		CCLOG("%f,", 0.1f / add_line);
 		auto action = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(HUDLayer::addCombo, this)), DelayTime::create(0.1f / add_line), nullptr);
 		vector_action.pushBack(action);
 

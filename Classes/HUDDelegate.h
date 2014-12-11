@@ -5,7 +5,6 @@ class HUDDelegate
 public:
 	virtual void addLine(int) = 0;
 
-private:
 	virtual void addScore() = 0;
 
 	virtual void addSpeed() = 0;

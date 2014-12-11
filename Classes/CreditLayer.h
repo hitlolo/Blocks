@@ -27,6 +27,10 @@ private:
 
 	Size  visibleSize;
 
+	void setCreditString();
+
+	void setEventListener();
+
 	void cancel();
 
 	void show();

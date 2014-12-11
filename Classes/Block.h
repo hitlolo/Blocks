@@ -16,6 +16,7 @@ public:
 	Point toBoardCoordinate();
 
 	void  switchShowing();
+
 protected:
 
 	CC_SYNTHESIZE_PASS_BY_REF(BlockDef, blockDef, BlockDefinition);

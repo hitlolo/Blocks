@@ -19,7 +19,6 @@ public:
 	CREATE_FUNC(GameScene);
 
 private:
-	~GameScene();
 
 	Point originPoint;
 
@@ -28,8 +27,6 @@ private:
 	void  addLayers();
 
 	std::vector<Node*> starVector;
-
-	void startShining(float time);
 
 };
 
