@@ -6,18 +6,26 @@
 #include "GameLogo.h"
 #include "GameMenu.h"
 #include "GameScene.h"
+#include "OverLayer.h"
 
 class CommandCenter
 {
 
 public:
+	CommandCenter();
+
 	~CommandCenter();
 
 	static CommandCenter* getInstance();
 
+	CC_SYNTHESIZE(Scene*, curScene, CurScene);
+
 	CC_SYNTHESIZE(GAME_STATE, curState, CurState);
 
+	CC_SYNTHESIZE(int, curSpeed, SpeedLevel);
+
 	void goState(GAME_STATE = GAME_STATE::LOGO);
+
 
 private:
 

@@ -1,7 +1,7 @@
-#include "ScoreLayer.h"
+#include "HUDLayer.h"
 
 
-bool ScoreLayer::init()
+bool HUDLayer::init()
 {
 	if (!Layer::init())
 	{
@@ -11,20 +11,20 @@ bool ScoreLayer::init()
 	return true;
 }
 
-ScoreLayer::ScoreLayer()
+HUDLayer::HUDLayer()
 {
 	lineNum = 0;
 	comboNum = 0;
 	scoreNum = 0;
 }
 
-ScoreLayer::~ScoreLayer()
+HUDLayer::~HUDLayer()
 {
 	removeAllChildrenWithCleanup(true);
 	removeFromParentAndCleanup(true);
 }
 
-void ScoreLayer::addLayer()
+void HUDLayer::addLayer()
 {
 	Point originPoint = Director::getInstance()->getVisibleOrigin();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -42,11 +42,11 @@ void ScoreLayer::addLayer()
 	curSpeed = dynamic_cast<Text*>(rootNode->getChildByName("textCurSpeed"));
 	curCombo = dynamic_cast<Text*>(rootNode->getChildByName("textCurCombo"));
 
-
+	curSpeed->setText(String::createWithFormat("%d", CommandCenter::getInstance()->getSpeedLevel())->getCString());
 }
 
 
-void ScoreLayer::addLine(int add_line)
+void HUDLayer::addLine(int add_line)
 {
 	int combo = add_line - 1;
 	int tem = lineNum;
@@ -68,7 +68,7 @@ void ScoreLayer::addLine(int add_line)
 	for (int i = 0; i < combo; i++)
 	{
 		CCLOG("%f,", 0.1f / add_line);
-		auto action = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(ScoreLayer::addCombo, this)), DelayTime::create(0.1f / add_line), nullptr);
+		auto action = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(HUDLayer::addCombo, this)), DelayTime::create(0.1f / add_line), nullptr);
 		vector_action.pushBack(action);
 
 	}
@@ -76,7 +76,7 @@ void ScoreLayer::addLine(int add_line)
 	//几次combo就几倍积分
 	for (int i = 0; i < add_line * add_line; i++)
 	{
-		auto action = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(ScoreLayer::addScore, this)), DelayTime::create(0.1f / (add_line * add_line)), nullptr);
+		auto action = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(HUDLayer::addScore, this)), DelayTime::create(0.1f / (add_line * add_line)), nullptr);
 		vector_action.pushBack(action);
 
 	}
@@ -87,13 +87,13 @@ void ScoreLayer::addLine(int add_line)
 
 }
 
-void ScoreLayer::addCombo()
+void HUDLayer::addCombo()
 {
 	comboNum += 1;
 	curCombo->setText(String::createWithFormat("%d", comboNum)->getCString());
 }
 
-void ScoreLayer::addScore()
+void HUDLayer::addScore()
 {
 	//每次10分
 	DiscJockey::getInstance()->playAddScoreEffect();
@@ -101,8 +101,9 @@ void ScoreLayer::addScore()
 	curScore->setText(String::createWithFormat("%d", scoreNum)->getCString());
 }
 
-void ScoreLayer::addSpeed()
+void HUDLayer::addSpeed()
 {
-	speedLevel += 1;
-	curSpeed->setText(String::createWithFormat("%d", speedLevel)->getCString());
+	int speed = CommandCenter::getInstance()->getSpeedLevel() + 1;
+	CommandCenter::getInstance()->setSpeedLevel(speed);
+	curSpeed->setText(String::createWithFormat("%d", speed)->getCString());
 }

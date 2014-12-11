@@ -8,9 +8,11 @@
 #include "GameBoard.h"
 #include "SuperRotationSystem.h"
 #include "RandomGenerator.h"
+#include "CommandCenter.h"
 
 USING_NS_CC;
 
+//extern int speedLevel;
 class Tetromino :public Sprite
 {
 public:

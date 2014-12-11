@@ -144,7 +144,7 @@ void GameBoard::gameStart()
 void GameBoard::gameOver()
 {
 	curTetromino->overGame();
-	CCLOG("GAMEOVER!");
+	CommandCenter::getInstance()->goState(GAME_STATE::OVER);
 }
 
 void GameBoard::switchTetromino()

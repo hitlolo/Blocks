@@ -150,8 +150,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\OptionLayer.cpp" />
+    <ClCompile Include="..\Classes\OverLayer.cpp" />
     <ClCompile Include="..\Classes\RandomGenerator.cpp" />
-    <ClCompile Include="..\Classes\ScoreLayer.cpp" />
+    <ClCompile Include="..\Classes\HUDLayer.cpp" />
     <ClCompile Include="..\Classes\SuperRotationSystem.cpp" />
     <ClCompile Include="..\Classes\Tetromino.cpp" />
     <ClCompile Include="..\Classes\TouchLayer.cpp" />
@@ -175,8 +176,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\HUDDelegate.h" />
     <ClInclude Include="..\Classes\OptionLayer.h" />
+    <ClInclude Include="..\Classes\OverLayer.h" />
     <ClInclude Include="..\Classes\RandomGenerator.h" />
-    <ClInclude Include="..\Classes\ScoreLayer.h" />
+    <ClInclude Include="..\Classes\HUDLayer.h" />
     <ClInclude Include="..\Classes\SuperRotationSystem.h" />
     <ClInclude Include="..\Classes\Tetromino.h" />
     <ClInclude Include="..\Classes\TouchDelegate.h" />

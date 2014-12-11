@@ -60,12 +60,12 @@ void OptionLayer::addOption()
 	musicBox->setSelectedState(getDJ()->isMusicOn());
 	effectBox->setSelectedState(getDJ()->isEffectOn());
 
-
+	int curSpeed = CommandCenter::getInstance()->getSpeedLevel();
 	auto textNode = dynamic_cast<ui::Text*>(optionNode->getChildByName("textCurSpeed"));
-	textNode->setText(String::createWithFormat("%d", speedLevel)->getCString());
+	textNode->setText(String::createWithFormat("%d", curSpeed)->getCString());
 	auto speedSlider = dynamic_cast<ui::Slider*>(optionNode->getChildByName("speedSlider"));
 	speedSlider->addEventListenerSlider(this, sliderpercentchangedselector(OptionLayer::speedSliderCallback));
-	speedSlider->setPercent(speedLevel * 10);
+	speedSlider->setPercent(curSpeed * 10);
 }
 
 bool OptionLayer::onTouchBegan(Touch* touch, Event* event)
@@ -153,7 +153,7 @@ void OptionLayer::speedSliderCallback(Ref*pSender, ui::SliderEventType event_typ
 		int tem = percent / 10;
 		auto textNode = dynamic_cast<ui::Text*>(this->getChildByName("optionNode")->getChildByName("textCurSpeed"));
 		textNode->setText(String::createWithFormat("%d", tem)->getCString());
-		speedLevel = tem;
+		CommandCenter::getInstance()->setSpeedLevel(tem);
 	}
 
 }

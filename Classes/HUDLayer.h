@@ -8,16 +8,17 @@
 #include "HUDDelegate.h"
 #include "GameData.h"
 #include "DiscJockey.h"
+#include "CommandCenter.h"
 
 USING_NS_CC;
 using namespace ui;
 
-extern int speedLevel;
-class ScoreLayer :public Layer, public HUDDelegate
+
+class HUDLayer :public Layer, public HUDDelegate
 {
 
 public:
-	CREATE_FUNC(ScoreLayer);
+	CREATE_FUNC(HUDLayer);
 
 	virtual bool init() override;
 
@@ -25,9 +26,9 @@ public:
 
 	virtual void addLine(int) override;
 
-	ScoreLayer();
+	HUDLayer();
 
-	~ScoreLayer();
+	~HUDLayer();
 
 private:
 

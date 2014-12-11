@@ -5,7 +5,7 @@
 #include "GameBoard.h"
 #include "TouchLayer.h"
 #include "cocostudio/CocoStudio.h"
-#include "ScoreLayer.h"
+#include "HUDLayer.h"
 
 USING_NS_CC;
 

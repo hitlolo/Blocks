@@ -51,6 +51,7 @@ Tetromino::Tetromino(TETROMINO_TYPE type, bool ghost)
 	setShapesByType(type);
 
 	this->setIsGhost(ghost); 
+
 }
 
 Tetromino::~Tetromino()
@@ -161,6 +162,7 @@ void Tetromino::checkAndStopLockon()
 		if (lock_on)
 		{
 			this->stopAction(lock_on);
+			this->startFalling();
 		}
 	}
 }
@@ -423,14 +425,14 @@ void Tetromino::lockOn()
 void Tetromino::runLockDelay()
 {
 	auto delay = DelayTime::create(0.25f);
-	auto lockon = Sequence::createWithTwoActions(delay, CCCallFunc::create(CC_CALLBACK_0(Tetromino::lockOn,this)));
+	auto lockon = Sequence::create(CCCallFunc::create(CC_CALLBACK_0(Tetromino::stopFalling, this)),delay, CCCallFunc::create(CC_CALLBACK_0(Tetromino::lockOn, this)),nullptr);
 	lockon->setTag(LOCK_DELAY_TAG);
 	this->runAction(lockon);
 }
 
 void Tetromino::startFalling()
 {
-	this->schedule(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown), 1.0f);
+	this->schedule(CC_SCHEDULE_SELECTOR(Tetromino::fallingDown), 1.0f - (0.09f * CommandCenter::getInstance()->getSpeedLevel()));
 }
 
 void Tetromino::stopFalling()

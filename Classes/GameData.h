@@ -78,4 +78,3 @@ typedef struct
 
 }BlockDef;
 
-static int speedLevel = 0;  //静态全局 表示砖块下落速度等级

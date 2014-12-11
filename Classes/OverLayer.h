@@ -1,5 +1,5 @@
-#ifndef BLOCK_OPTIONS
-#define BLOCK_OPTIONS
+#ifndef BLOCK_GAME_OVER
+#define BLOCK_GAME_OVER
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
@@ -12,11 +12,11 @@ USING_NS_CC;
 using namespace ui;
 
 
-class OptionLayer :public Layer
+class OverLayer :public Layer
 {
 
 public:
-	CREATE_FUNC(OptionLayer);
+	CREATE_FUNC(OverLayer);
 
 	virtual bool init() override;
 
@@ -30,24 +30,18 @@ public:
 
 	virtual void onExit();
 
-	
-	
+
+
 private:
 	Point originPoint;
 
 	Size  visibleSize;
 
-	void cancel(Ref* sender);
+	void  restart(Ref* sender);
 
-	void addOption();
+	void  addLayer();
 
 	CC_SYNTHESIZE(DiscJockeyDelegate*, djDelegator, DJ);
-
-	void musicCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type);
-
-	void effectCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type);
-
-	void speedSliderCallback(Ref*pSender, ui::SliderEventType event_type);
 };
 
 #endif

@@ -84,8 +84,11 @@
     <ClCompile Include="..\Classes\Tetromino.cpp">
       <Filter>classes\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ScoreLayer.cpp">
+    <ClCompile Include="..\Classes\HUDLayer.cpp">
       <Filter>classes\Gaming</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OverLayer.cpp">
+      <Filter>classes\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +158,14 @@
     <ClInclude Include="..\Classes\Tetromino.h">
       <Filter>classes\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ScoreLayer.h">
-      <Filter>classes\Gaming</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\HUDDelegate.h">
       <Filter>classes\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HUDLayer.h">
+      <Filter>classes\Gaming</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OverLayer.h">
+      <Filter>classes\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,11 @@
 
 CommandCenter* CommandCenter::_commandCenter = nullptr;
 
+CommandCenter::CommandCenter()
+{
+	curSpeed = 0;
+}
+
 CommandCenter::~CommandCenter()
 {
 	CC_SAFE_DELETE(_commandCenter);
@@ -40,6 +45,7 @@ void CommandCenter::goState(GAME_STATE state)
 
 void   CommandCenter::toNextScene(Scene* scene)
 {
+	this->setCurScene(scene);
 	TransitionScene *transition = TransitionFade::create(1.3f, scene);
 	Director::getInstance()->replaceScene(transition);
 }
@@ -64,5 +70,7 @@ void   CommandCenter::toGame()
 
 void   CommandCenter::toOver()
 {
-
+	
+	auto overLayer = OverLayer::create();
+	this->getCurScene()->addChild(overLayer);
 }
