@@ -77,6 +77,5 @@ typedef struct
 	int               _coordinateX;
 	int               _coordinateY;
 	bool              _isGhost;
-
 }BlockDef;
 

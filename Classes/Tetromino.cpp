@@ -9,7 +9,7 @@ bool Tetromino::init()
 	}
 	
 //	this->setAnchorPoint(Point(0.5, 0.5));
-#if 0
+#if 1
 	auto grid = Sprite::create("grid1.png");
 	grid->setAnchorPoint(Point(0, 0));
 	this->addChild(grid);

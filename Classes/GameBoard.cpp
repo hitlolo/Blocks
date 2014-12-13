@@ -47,7 +47,6 @@ GameBoard::~GameBoard()
 {
 	playFieldVector.clear();
 	this->removeAllChildrenWithCleanup(true);
-	
 }
 
 
@@ -62,8 +61,7 @@ void GameBoard::initPlayField()
 				auto blockCell = BlockElement::create(blockDef);
 				this->addChild(blockCell);
 				playFieldVector[y][x] = blockCell;
-			}
-			
+			}		
 		}
 	}
 
@@ -165,7 +163,6 @@ void GameBoard::switchCurAndNextTetromino()
 
 void GameBoard::switchCurAndHoldTetromino()
 {
-	CCLOG("ONHOLD");
 	if (holdTetromino == nullptr)
 	{
 		createHoldPiece();
@@ -205,7 +202,6 @@ void GameBoard::onRotate()
 	getDJ()->playMoveEffect();
 	curTetromino->onRotate();
 	ghostTetromino->getHaunted();
-//	ghostTetromino->setCurShape(curTetromino->getCurShape());
 }
 
 void GameBoard::onDown()
@@ -290,6 +286,7 @@ void GameBoard::checkClear()
 			}
 			if (x == FIELD_RIGHT_BOARD)
 			{
+				//which line is full!
 				comboVector[index++] = y;
 				
 			}
@@ -301,6 +298,7 @@ void GameBoard::checkClear()
 	}
 	else
 	{
+		//clear it
 		clearLine(comboVector);
 	}
 	

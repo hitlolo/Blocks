@@ -191,17 +191,6 @@
 				<key>sourceSize</key>
 				<string>{160,160}</string>
 			</dict>
-			<key>button/disable.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{665,958},{48,48}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{48,48}</string>
-			</dict>
 			<key>button/holdButton.png</key>
 			<dict>
 				<key>frame</key>
@@ -234,17 +223,6 @@
 				<true />
 				<key>sourceSize</key>
 				<string>{130,100}</string>
-			</dict>
-			<key>button/pause.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{717,958},{48,48}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{48,48}</string>
 			</dict>
 			<key>button/pressed.png</key>
 			<dict>
@@ -282,18 +260,7 @@
 			<key>button/set.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{813,757},{48,48}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{48,48}</string>
-			</dict>
-			<key>button/start.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{864,673},{48,48}}</string>
+				<string>{{665,958},{48,48}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -421,6 +388,39 @@
 				<false />
 				<key>sourceSize</key>
 				<string>{330,650}</string>
+			</dict>
+			<key>button/disable.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{717,958},{48,48}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{48,48}</string>
+			</dict>
+			<key>button/start.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{813,757},{48,48}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{48,48}</string>
+			</dict>
+			<key>button/pause.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{864,673},{48,48}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{48,48}</string>
 			</dict>
 		</dict>
 		<key>metadata</key>
