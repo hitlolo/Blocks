@@ -81,6 +81,7 @@ void OverLayer::onExit()
 void OverLayer::restart(Ref* sender)
 {
 	getDJ()->playClickEffect();
+	CommandCenter::getInstance()->setSpeedLevel(0);
 	auto action = Spawn::create(MoveTo::create(0.3f, Point(-(originPoint.x + visibleSize.width) , (originPoint.y + visibleSize.height / 2))), FadeOut::create(0.3f),nullptr);
 	auto set = CallFunc::create(CC_CALLBACK_0(OptionLayer::setVisible, this, false));
 	auto remove = CallFunc::create(CC_CALLBACK_0(OptionLayer::removeFromParent, this));
