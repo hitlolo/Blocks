@@ -23,7 +23,8 @@ __like__: hard drop, wall kick ,lock delay.
 just the basic staff.
 and that is it.
 
-Here is some pictures:
+Here is some pictures of the game:    
+
 ![menu1](menu1.png)
 <br>
 ![menu2](menu2.png)
