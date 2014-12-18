@@ -33,14 +33,18 @@ void HUDLayer::addLayer()
 
 	
 	this->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
-	Node *rootNode = CSLoader::createNode("scoreNode.csb");//传入Studio2.x的资源路径
-	rootNode->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
+	Node *rootNode = CSLoader::createNode("scoreNode.csb");
+	rootNode->setAnchorPoint(Point::ZERO);
+	//rootNode->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
 	this->addChild(rootNode);
 
-	curLine  = dynamic_cast<Text*>(rootNode->getChildByName("textCurLine"));
-	curScore = dynamic_cast<Text*>(rootNode->getChildByName("textCurScore"));
-	curSpeed = dynamic_cast<Text*>(rootNode->getChildByName("textCurSpeed"));
-	curCombo = dynamic_cast<Text*>(rootNode->getChildByName("textCurCombo"));
+	auto hudRoot = dynamic_cast<Node*>(rootNode->getChildByName("hudRoot"));
+	auto hud = dynamic_cast<Node*>(hudRoot->getChildByName("hudNode"));
+
+	curLine = dynamic_cast<Text*>(hud->getChildByName("textCurLine"));
+	curScore = dynamic_cast<Text*>(hud->getChildByName("textCurScore"));
+	curSpeed = dynamic_cast<Text*>(hud->getChildByName("textCurSpeed"));
+	curCombo = dynamic_cast<Text*>(hud->getChildByName("textCurCombo"));
 
 	curSpeed->setText(String::createWithFormat("%d", CommandCenter::getInstance()->getSpeedLevel())->getCString());
 }

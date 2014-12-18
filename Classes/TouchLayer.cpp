@@ -15,13 +15,17 @@ void TouchLayer::getAndSetButtons()
 {
 	Point originPoint = Director::getInstance()->getVisibleOrigin();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Node *rootNode = CSLoader::createNode("uiButton.csb");//传入Studio2.x的资源路径
+	Node *rootNode = CSLoader::createNode("buttonNode.csb");
 	rootNode->setPosition(Point(originPoint.x + visibleSize.width / 2, originPoint.y + visibleSize.height / 2));
 	this->addChild(rootNode);
-	rootNode->setName("buttonRoot");
+	rootNode->setName("rootNode");
+
+	auto buttonRoot = dynamic_cast<Node*>(rootNode->getChildByName("buttonRoot"));
+	auto buttonNode = dynamic_cast<Node*>(buttonRoot->getChildByName("buttonNode"));
+	
 
 
-	auto leftButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("leftButton"));
+	auto leftButton = dynamic_cast<ui::Button*> (buttonNode->getChildByName("leftButton"));
 	if (leftButton)
 	{
 
@@ -29,7 +33,7 @@ void TouchLayer::getAndSetButtons()
 		leftButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onLeft, this));
 	}
 
-	auto rightButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("rightButton"));
+	auto rightButton = dynamic_cast<ui::Button*> (buttonNode->getChildByName("rightButton"));
 	if (rightButton)
 	{
 		rightButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongRightClick, this));
@@ -37,34 +41,36 @@ void TouchLayer::getAndSetButtons()
 
 	}
 
-	auto rotateButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("rotateButton"));
-	if (rotateButton)
-	{
-		
-		rotateButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongRotateClick, this));
-		rotateButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onRotation, this));
-	}
 
-	auto downButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("downButton"));
+
+	auto downButton = dynamic_cast<ui::Button*> (buttonNode->getChildByName("downButton"));
 	if (downButton)
 	{
 		downButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongDownClick, this));
 		downButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onDown, this));
 	}
 
-	auto hardButton = dynamic_cast<ui::Button*> (rootNode->getChildByName("hardButton"));
+	auto hardButton = dynamic_cast<ui::Button*> (buttonNode->getChildByName("hardButton"));
 	if (hardButton)
 	{
 		hardButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHardDrop, this));
 	}
 
-	auto holdButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("holdButton"));
+	auto rotateButton = dynamic_cast<ui::Button*> (buttonRoot->getChildByName("rotateButton"));
+	if (rotateButton)
+	{
+
+		rotateButton->addTouchEventListener(CC_CALLBACK_2(TouchLayer::onLongRotateClick, this));
+		rotateButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onRotation, this));
+	}
+
+	auto holdButton = dynamic_cast<ui::Button*>(buttonRoot->getChildByName("holdButton"));
 	if (holdButton)
 	{
 		holdButton->addClickEventListener(CC_CALLBACK_1(TouchLayer::onHold, this));
 	}
 
-	auto pauseBox = dynamic_cast<ui::CheckBox*>(rootNode->getChildByName("pauseCheck"));	
+	auto pauseBox = dynamic_cast<ui::CheckBox*>(buttonRoot->getChildByName("pauseCheck"));
 	if (pauseBox)
 	{
 		pauseBox->addEventListenerCheckBox(this, checkboxselectedeventselector(TouchLayer::pauseCheckBoxCallback));
@@ -230,13 +236,13 @@ void TouchLayer::onHardDrop(Ref* sender)
 void TouchLayer::pauseCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event_type)
 {
 
-	auto buttonNode = this->getChildByName("buttonRoot");
+	auto buttonRoot = this->getChildByName("rootNode")->getChildByName("buttonRoot");
 	switch (event_type)
 	{
 	case CheckBoxEventType::CHECKBOX_STATE_EVENT_SELECTED:
 		this->getMyTouchDelegate()->onPause();
 	
-		for (auto node : buttonNode->getChildren())
+		for (auto node : buttonRoot->getChildren())
 		{
 			if (node->getName() == "pauseCheck")
 			{
@@ -246,11 +252,22 @@ void TouchLayer::pauseCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event
 			{
 				dynamic_cast<ui::Button*>(node)->setEnabled(true);
 			}
+			else if (node->getName() == "buttonNode")
+			{
+				for (auto node_child : node->getChildren())
+				{
+					if (dynamic_cast<ui::Button*>(node_child))
+					{
+						dynamic_cast<ui::Button*>(node_child)->setEnabled(true);
+					}
+				}
+				
+			}
 		}
 		break;
 	case CheckBoxEventType::CHECKBOX_STATE_EVENT_UNSELECTED:
 		this->getMyTouchDelegate()->onPause();	
-		for (auto node : buttonNode->getChildren())
+		for (auto node : buttonRoot->getChildren())
 		{
 			if (node->getName() == "pauseCheck")
 			{
@@ -259,6 +276,17 @@ void TouchLayer::pauseCheckBoxCallback(Ref *pSender, ui::CheckBoxEventType event
 			else if (dynamic_cast<ui::Button*>(node))
 			{
 				dynamic_cast<ui::Button*>(node)->setEnabled(false);
+			}
+			else if (node->getName() == "buttonNode")
+			{
+				for (auto node_child : node->getChildren())
+				{
+					if (dynamic_cast<ui::Button*>(node_child))
+					{
+						dynamic_cast<ui::Button*>(node_child)->setEnabled(false);
+					}
+				}
+
 			}
 		}
 		break;

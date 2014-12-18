@@ -24,6 +24,7 @@ void OverLayer::addLayer()
 	optionNode->setPosition(Point(originPoint.x + visibleSize.width / 2, (originPoint.y + visibleSize.height / 2)));
 	this->addChild(optionNode);
 
+
 	this->setAnchorPoint(Point(0.5, 0.5));
 	this->ignoreAnchorPointForPosition(false);
 	this->setPosition(Point(originPoint.x + visibleSize.width / 2, -(originPoint.y + visibleSize.height / 2)));
@@ -36,7 +37,8 @@ void OverLayer::addLayer()
 	eventListener->onTouchEnded = CC_CALLBACK_2(OverLayer::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
-	auto restartButton = dynamic_cast<ui::Button*> (optionNode->getChildByName("restartButton"));
+	auto buttonNode = dynamic_cast<Node*>(optionNode->getChildByName("overNode"));
+	auto restartButton = dynamic_cast<ui::Button*> (buttonNode->getChildByName("restartButton"));
 	if (restartButton)
 	{
 		restartButton->addClickEventListener(CC_CALLBACK_1(OverLayer::restart, this));
