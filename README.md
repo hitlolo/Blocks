@@ -1,17 +1,4 @@
-###BLOCKS
-hi,there!
-Here is my second game released!
-Like the last one,
-it is a tiny game based on cocos2dx.
-I did it only for my own study due to my bad memory.
-And practice makes perfect!
 
----
-<br>
-I am a unsocial guy, so i guess no one will discover this.
-But, i just dont care.
-
-Anyway:
 ####It's a Tetris clone of my own.
 * C++
 * Cocos2dx 3.3
